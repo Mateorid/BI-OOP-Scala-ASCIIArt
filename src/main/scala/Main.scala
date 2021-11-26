@@ -1,5 +1,4 @@
-package Main
-
 object Main extends App {
-  println("Hello there")
+  for (i <- Main.args)
+    println(i)
 }
