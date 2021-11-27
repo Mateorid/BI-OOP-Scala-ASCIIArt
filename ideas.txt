@@ -1,0 +1,3 @@
+Pri nacitani argumentu pouzit pattern-matching ktery je nastrka do nejakeho pole,  tem ruznym akcim dat nejkou prioritu a to pole potom 
+podle te priority seradit
+mozna bs XD

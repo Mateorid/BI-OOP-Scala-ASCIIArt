@@ -1,7 +1,5 @@
 package Controller
 
-trait Importer {
-
-
+class ImageImporter {
 
 }
