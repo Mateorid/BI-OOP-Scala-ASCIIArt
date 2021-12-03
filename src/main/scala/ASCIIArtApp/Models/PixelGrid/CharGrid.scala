@@ -2,6 +2,5 @@ package ASCIIArtApp.Models.PixelGrid
 
 import ASCIIArtApp.Models.Pixel.CharPixel
 
-case class CharGrid(pixelRows: Iterable[Iterable[CharPixel]]) extends PixelGrid(Iterable(Iterable(CharPixel))) {
-
-}
+case class CharGrid(pixelRows: List[List[CharPixel]])
+    extends PixelGrid(List(List(CharPixel))) {}

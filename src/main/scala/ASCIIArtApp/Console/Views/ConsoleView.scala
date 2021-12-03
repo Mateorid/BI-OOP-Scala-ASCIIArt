@@ -1,24 +1,25 @@
 package ASCIIArtApp.Console.Views
 
+import ASCIIArtApp.Console.Controller.Controller
+
 import scala.collection.mutable.ListBuffer
 
-class ConsoleView {
+class ConsoleView(controller: Controller) {
 
-  def applyCommands(commands: Array[String]): Unit = {
-    val cmds = parseCommands(commands)
+  //todo create Trait for View with applyCommands ?
+  def loadCommands(commands: Array[String]): Unit = {
+    val parsed = parseCommands(commands)
 
-    for (i <- cmds) {
+    for (i <- parsed)
       processCommand(i)
-    }
   }
 
-
-  def parseCommands(commands: Array[String]): List[String] = {
+  private def parseCommands(commands: Array[String]): List[String] = {
     val parsed = new ListBuffer[String]
     var cmd = new String
     var lastWasArg = false
 
-    for (i <- commands) {
+    for (i <- commands)
       if (i.startsWith("--")) {
         if (lastWasArg) {
           parsed += cmd
@@ -32,10 +33,8 @@ class ConsoleView {
         cmd = ""
         lastWasArg = false
       }
-    }
     if (cmd != "")
       parsed += cmd
-
 
     parsed.result()
     //    val res = parsed.result()
@@ -44,20 +43,30 @@ class ConsoleView {
     //    }
   }
 
-  def processCommand(command: String): Unit = {
+  private def processCommand(command: String): Unit = {
 
     //Input file
     if (command.startsWith("--image")) {
-      //todo add file name to controller
+      if (command.startsWith("--image-random")) {
+        //todo
+      } else {
+        //todo add check if path or url - can be done by using different command for url reading
+        controller.setInput(command.substring(8))
+      }
+      //println(command.substring(8))
+      return
     }
 
     if (command.startsWith("--output-file")) {
-      //todo add file name to controller
-
+//      println(command.substring(14))
+      controller.setOutput(command.substring(14))
+      return
     }
 
-    if (command.startsWith("--output-console")) {
-      //todo set console as output stream in controller
+    if (command == "--output-console") {
+//      println("console XDD")
+      controller.setOutput(null)
+      return
     }
     command match {
       //todo add filter commands
