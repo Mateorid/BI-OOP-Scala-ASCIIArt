@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
-class PathImageLoader extends ImageLoader[String] {
+object PathImageLoader extends ImageLoader {
   /**
    * Loads from source to BufferedImage
    *

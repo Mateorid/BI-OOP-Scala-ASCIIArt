@@ -1,14 +1,17 @@
 package ASCIIArtApp.Console.Controller
 
-import ASCIIArtApp.Exporters.{Exporter, TextExporter}
 import ASCIIArtApp.Facades.ImageFacade
-import ASCIIArtApp.Loaders.PathImageLoader
-import ASCIIArtApp.Models.Image.RGBImage
-import ASCIIArtApp.Models.PixelGrid.RGBGrid
+import ASCIIArtApp.Loaders.{ImageLoader, PathImageLoader}
+import Exporters.{FileOutputExporter, StdOutputExporter, TextExporter}
+import ImageFilters.{ImageFilter, PixelGridFilter}
+
+import java.io.File
+import scala.collection.mutable.ListBuffer
 
 class ConsoleController extends Controller {
-  var input: String = _
-  var output: String = _
+  private var img: ImageFacade = _
+  private var exporter: TextExporter = _
+  private val filters = ListBuffer.empty[PixelGridFilter]
 
   /**
    * Shows a help on show to use the UI
@@ -26,23 +29,34 @@ class ConsoleController extends Controller {
    *
    * @param in URL or path to image
    */
-  override def setInput(in: String): Unit =
-    //todo where should the input be stored?
-    input = in
+  override def setInput(in: String): Unit = {
+    //todo check if path or url or do it some other way idfk
+    img = new ImageFacade(PathImageLoader.load(in))
+  }
 
   /**
    * Sets the output for the ASCII Art image
    *
    * @param out path for output or null for console
    */
-  override def setOutput(out: String): Unit =
-    //todo create an export controller?
-    if (out == null) {}
+  override def setOutput(out: String): Unit = {
+    if (out == null)
+      exporter = new StdOutputExporter
+    else
+      exporter = new FileOutputExporter(new File(out))
+  }
 
-  def executeCommands(): Unit = {
-    val loader = new PathImageLoader
-    val img = new ImageFacade(loader.load(input))
-    val res = img.transform()
-    res.print
+  override def addFilter(filter: PixelGridFilter): Unit = {
+    //todo check if filter argument is ok and return bool?
+    filters += filter
+  }
+
+  override def executeCommands(): Unit = {
+    img.applyFilters(filters.result())
+    img.transform()
+  }
+
+  override def export(): Unit = {
+    exporter.export(img.toString)
   }
 }

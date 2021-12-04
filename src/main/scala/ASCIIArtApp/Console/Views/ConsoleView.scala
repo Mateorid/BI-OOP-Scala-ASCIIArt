@@ -1,6 +1,7 @@
 package ASCIIArtApp.Console.Views
 
 import ASCIIArtApp.Console.Controller.Controller
+import ImageFilters.InvertImageFilter
 
 import scala.collection.mutable.ListBuffer
 
@@ -37,16 +38,13 @@ class ConsoleView(controller: Controller) {
       parsed += cmd
 
     parsed.result()
-    //    val res = parsed.result()
-    //    for (i <- res) {
-    //      println(i)
-    //    }
   }
 
   private def processCommand(command: String): Unit = {
 
     //Input file
     if (command.startsWith("--image")) {
+      //todo check for filetype - cant handle .png for example
       if (command.startsWith("--image-random")) {
         //todo
       } else {
@@ -58,18 +56,21 @@ class ConsoleView(controller: Controller) {
     }
 
     if (command.startsWith("--output-file")) {
-//      println(command.substring(14))
+      //      println(command.substring(14))
       controller.setOutput(command.substring(14))
       return
     }
 
     if (command == "--output-console") {
-//      println("console XDD")
+            println("console XDD")
       controller.setOutput(null)
       return
     }
     command match {
-      //todo add filter commands
+//      case "--rotate" + _ =>
+      case "--invert" =>
+        val filter = new InvertImageFilter
+        controller.addFilter(filter )
       case _ => throw new Exception("Incorrect command, use \"help\" for help")
     }
   }

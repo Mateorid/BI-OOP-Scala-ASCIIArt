@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage
 import java.net.URL
 import javax.imageio.ImageIO
 
-class URLImageLoader extends ImageLoader[String] {
+object URLImageLoader extends ImageLoader {
   /**
    * Loads from source to BufferedImage
    *
