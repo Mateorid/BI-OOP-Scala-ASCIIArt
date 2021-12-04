@@ -1,11 +1,10 @@
 package ASCIIArtApp.Models.PixelGrid
 
 import ASCIIArtApp.Models.Pixel.Pixel
-
 import scala.collection.mutable.ListBuffer
 
 
-//todo pixel instead of T and fuck the other classes?
+
 class PixelGrid[T <: Pixel](pixelRows: List[List[T]]) {
   val height: Int = pixelRows.size
   val width: Int = pixelRows(1).length

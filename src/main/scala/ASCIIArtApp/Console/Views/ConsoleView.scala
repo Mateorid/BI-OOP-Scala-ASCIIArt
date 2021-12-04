@@ -1,7 +1,7 @@
 package ASCIIArtApp.Console.Views
 
 import ASCIIArtApp.Console.Controller.Controller
-import ImageFilters.InvertImageFilter
+import ImageFilters.{BrightnessFilter, InvertImageFilter}
 
 import scala.collection.mutable.ListBuffer
 
@@ -62,15 +62,20 @@ class ConsoleView(controller: Controller) {
     }
 
     if (command == "--output-console") {
-            println("console XDD")
       controller.setOutput(null)
       return
     }
+
+    if (command.startsWith("--brightness")) {
+      //todo try catch this
+      val x: Int = command.substring(13).toInt
+      controller.addFilter(new BrightnessFilter(x))
+      return
+    }
     command match {
-//      case "--rotate" + _ =>
+      //      case "--rotate" + _ =>
       case "--invert" =>
-        val filter = new InvertImageFilter
-        controller.addFilter(filter )
+        controller.addFilter(new InvertImageFilter)
       case _ => throw new Exception("Incorrect command, use \"help\" for help")
     }
   }

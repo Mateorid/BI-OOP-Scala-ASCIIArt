@@ -3,7 +3,7 @@ package ImageFilters
 import ASCIIArtApp.Models.Pixel.GSPixel
 import ASCIIArtApp.Models.PixelGrid.PixelGrid
 
-class BrightnessFilter(value: Int) extends PixelGridFilter {
+class BrightnessFilter(value: Int) extends GSPixelFilter {
   override val priority: Int = 3 //todo
 
   /**
@@ -12,8 +12,10 @@ class BrightnessFilter(value: Int) extends PixelGridFilter {
    * @param item input
    * @return item with applied filter
    */
-  override def apply(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
-    //todo
-    item
+  override def apply(item: GSPixel): GSPixel = {
+    var res = item.get() + value
+    if (res > 255) res = 255
+    if (res < 0) res = 0
+    GSPixel(res)
   }
 }
