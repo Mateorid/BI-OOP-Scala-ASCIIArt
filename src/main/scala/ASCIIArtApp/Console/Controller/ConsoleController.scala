@@ -3,7 +3,7 @@ package ASCIIArtApp.Console.Controller
 import ASCIIArtApp.Facades.ImageFacade
 import ASCIIArtApp.Loaders.{ImageLoader, PathImageLoader}
 import Exporters.{FileOutputExporter, StdOutputExporter, TextExporter}
-import ImageFilters.{ImageFilter, GSPixelFilter}
+import ImageFilters.{GSPixelFilter, ImageFilter, PixelGridFilter}
 
 import java.io.File
 import scala.collection.mutable.ListBuffer
@@ -11,7 +11,8 @@ import scala.collection.mutable.ListBuffer
 class ConsoleController extends Controller {
   private var img: ImageFacade = _
   private var exporter: TextExporter = _
-  private val filters = ListBuffer.empty[GSPixelFilter]
+  private val pixelFilters = ListBuffer.empty[GSPixelFilter]
+  private val gridFilters = ListBuffer.empty[PixelGridFilter]
 
   /**
    * Shows a help on show to use the UI
@@ -48,11 +49,15 @@ class ConsoleController extends Controller {
 
   override def addFilter(filter: GSPixelFilter): Unit = {
     //todo check if filter argument is ok and return bool?
-    filters += filter
+    pixelFilters += filter
+  }
+
+  override def addFilter(filter: PixelGridFilter): Unit = {
+    gridFilters += filter
   }
 
   override def executeCommands(): Unit = {
-    img.applyFilters(filters.result())
+    img.applyFilters(pixelFilters.result(), gridFilters.result())
     img.transform()
   }
 

@@ -2,7 +2,7 @@ package ASCIIArtApp.Facades
 
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
 import ASCIIArtApp.Models.PixelGrid.PixelGrid
-import ImageFilters.GSPixelFilter
+import ImageFilters.{GSPixelFilter, PixelGridFilter}
 
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -27,8 +27,13 @@ class ImageFacade(bi: BufferedImage) {
   private val pixels = tmp.result()
   rgbImg = new PixelGrid(pixels)
 
-  def applyFilters(filters: List[GSPixelFilter]): Unit = {
+  def applyFilters(filters: List[GSPixelFilter], gridFilters: List[PixelGridFilter]): Unit = {
+    //todo create some filter executor/handler/controller class?
     gsImg = toGrayScale
+
+    for (i <- gridFilters) {
+      gsImg = i.apply(gsImg)
+    }
     for (i <- filters) {
       gsImg = gsImg.applyFilterOnPixel(i.apply)
     }

@@ -1,7 +1,7 @@
 package ASCIIArtApp.Console.Views
 
 import ASCIIArtApp.Console.Controller.Controller
-import ImageFilters.{BrightnessFilter, InvertImageFilter}
+import ImageFilters.{BrightnessFilter, InvertImageFilter, RotateImageFilter}
 
 import scala.collection.mutable.ListBuffer
 
@@ -63,6 +63,14 @@ class ConsoleView(controller: Controller) {
 
     if (command == "--output-console") {
       controller.setOutput(null)
+      return
+    }
+    if (command.startsWith("--rotate")) {
+      //todo try catch this
+      val degrees: Int = command.substring(9).toInt
+      if (degrees % 90 != 0)
+        throw new Exception("Incorrect command format, --rotation supports only 90 degrees rotations")
+      controller.addFilter(new RotateImageFilter(degrees))
       return
     }
 
