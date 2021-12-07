@@ -41,30 +41,31 @@ class ConsoleView(controller: Controller) {
   }
 
   private def processCommand(command: String): Unit = {
-
+    //todo change this to the labs version
     //Input file
-    if (command.startsWith("--image")) {
-      //todo check for filetype - cant handle .png for example
-      if (command.startsWith("--image-random")) {
-        //todo
-      } else {
-        //todo add check if path or url - can be done by using different command for url reading
-        controller.setInput(command.substring(8))
-      }
-      //println(command.substring(8))
+    if (command.startsWith("--image-url")) {
+      controller.setInput(command.substring(8))
       return
     }
-
+    else if (command.startsWith("--image-random")) {
+      //todo
+    }
+    else if (command.startsWith("--image")) {
+      //todo check for filetype we cant handle .png for example
+      controller.setInput(command.substring(8))
+      return
+    }
+    //Output file
     if (command.startsWith("--output-file")) {
       //      println(command.substring(14))
       controller.setOutput(command.substring(14))
       return
     }
-
-    if (command == "--output-console") {
+    else if (command == "--output-console") {
       controller.setOutput(null)
       return
     }
+    //Filters
     if (command.startsWith("--rotate")) {
       //todo try catch this
       val degrees: Int = command.substring(9).toInt
@@ -74,7 +75,7 @@ class ConsoleView(controller: Controller) {
       return
     }
 
-    if (command.startsWith("--brightness")) {
+    else if (command.startsWith("--brightness")) {
       //todo try catch this
       val x: Int = command.substring(13).toInt
       controller.addFilter(new BrightnessFilter(x))

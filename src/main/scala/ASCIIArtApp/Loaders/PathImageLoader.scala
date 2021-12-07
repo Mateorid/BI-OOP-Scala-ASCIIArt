@@ -12,7 +12,6 @@ object PathImageLoader extends ImageLoader {
    * @return buffered image of the image provided
    */
   override def load(path: String): BufferedImage = {
-    //todo catch this above and let them try again in finally block?
     ImageIO.read(new File(path))
   }
 }

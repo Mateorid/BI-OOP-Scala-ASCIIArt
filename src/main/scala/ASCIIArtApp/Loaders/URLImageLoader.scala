@@ -12,7 +12,6 @@ object URLImageLoader extends ImageLoader {
    * @return buffered image of the image provided
    */
   override def load(url: String): BufferedImage = {
-    //todo catch this above and let them try again in finally block?
     ImageIO.read(new URL(url))
   }
 }

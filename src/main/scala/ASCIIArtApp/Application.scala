@@ -8,10 +8,14 @@ class Application {
   val cv = new ConsoleView(controller)
 
   def run(args: Array[String]): Unit = {
-    cv.loadCommands(args)
-    controller.executeCommands()
-    controller.export()
-    //todo finish this?
+    try {
+      cv.loadCommands(args)
+      controller.executeCommands()
+      controller.export()
+      //todo finish this?
+    } catch {
+      case _: Exception => println("--ERROR--")
+    }
   }
 
 }

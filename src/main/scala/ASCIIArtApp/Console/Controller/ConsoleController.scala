@@ -1,7 +1,7 @@
 package ASCIIArtApp.Console.Controller
 
 import ASCIIArtApp.Facades.ImageFacade
-import ASCIIArtApp.Loaders.{ImageLoader, PathImageLoader}
+import ASCIIArtApp.Loaders.{ImageLoader, PathImageLoader, URLImageLoader}
 import Exporters.{FileOutputExporter, StdOutputExporter, TextExporter}
 import ImageFilters.{GSPixelFilter, ImageFilter, PixelGridFilter}
 
@@ -31,8 +31,20 @@ class ConsoleController extends Controller {
    * @param in URL or path to image
    */
   override def setInput(in: String): Unit = {
-    //todo check if path or url or do it some other way idfk
-    img = new ImageFacade(PathImageLoader.load(in))
+    //todo change it to addFilter way & have a separate command in the consoleView "--imgage-url"
+    try {
+      if (in.startsWith("http")) {
+        //todo fails to load .gif?
+        img = new ImageFacade(URLImageLoader.load(in))
+      }
+      else {
+        img = new ImageFacade(PathImageLoader.load(in))
+      }
+    } catch {
+      case e: Throwable => println("--ERROR--\nFailed to load this file, make sure the file exist\n" + e)
+        //todo do this better?
+        throw new Exception()
+    }
   }
 
   /**
