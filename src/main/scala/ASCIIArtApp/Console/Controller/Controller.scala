@@ -1,6 +1,6 @@
 package ASCIIArtApp.Console.Controller
 
-import ImageFilters.{GSPixelFilter, ImageFilter, PixelGridFilter}
+import ImageFilters.{Filter, ImageFilter, PixelFilter}
 
 trait Controller {
 
@@ -16,7 +16,6 @@ trait Controller {
    */
   def setInput(in: String): Unit
 
-
   /**
    * Sets the output for the ASCII Art image
    *
@@ -24,9 +23,10 @@ trait Controller {
    */
   def setOutput(out: String): Unit
 
-  def addFilter(filter: GSPixelFilter): Unit
-
-  def addFilter(filter: PixelGridFilter): Unit
+  def addFilter(filter: ImageFilter): Unit
+//  def addFilter(filter: PixelFilter): Unit
+//
+//  def addFilter(filter: PixelGridFilter): Unit
 
   def executeCommands(): Unit
 

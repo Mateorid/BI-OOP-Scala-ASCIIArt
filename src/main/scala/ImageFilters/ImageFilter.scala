@@ -1,13 +1,6 @@
 package ImageFilters
 
-trait ImageFilter[T] {
-  val priority: Int
+import ASCIIArtApp.Models.Pixel.GSPixel
+import ASCIIArtApp.Models.PixelGrid
 
-  /**
-   * Applies a filter on provided item
-   *
-   * @param item input
-   * @return item with applied filter
-   */
-  def apply(item: T): T
-}
+trait ImageFilter extends Filter[PixelGrid[GSPixel]] {}

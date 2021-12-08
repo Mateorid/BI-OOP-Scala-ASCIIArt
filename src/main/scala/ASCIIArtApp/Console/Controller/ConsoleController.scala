@@ -3,7 +3,7 @@ package ASCIIArtApp.Console.Controller
 import ASCIIArtApp.Facades.ImageFacade
 import ASCIIArtApp.Loaders.{ImageLoader, PathImageLoader, URLImageLoader}
 import Exporters.{FileOutputExporter, StdOutputExporter, TextExporter}
-import ImageFilters.{GSPixelFilter, ImageFilter, PixelGridFilter}
+import ImageFilters.{Filter, ImageFilter, PixelFilter}
 
 import java.io.File
 import scala.collection.mutable.ListBuffer
@@ -11,8 +11,7 @@ import scala.collection.mutable.ListBuffer
 class ConsoleController extends Controller {
   private var img: ImageFacade = _
   private var exporter: TextExporter = _
-  private val pixelFilters = ListBuffer.empty[GSPixelFilter]
-  private val gridFilters = ListBuffer.empty[PixelGridFilter]
+  private var imageFilters = ListBuffer.empty[ImageFilter]
 
   /**
    * Shows a help on show to use the UI
@@ -30,50 +29,47 @@ class ConsoleController extends Controller {
    *
    * @param in URL or path to image
    */
-  override def setInput(in: String): Unit = {
-    //todo change it to addFilter way & have a separate command in the consoleView "--imgage-url"
-    try {
-      if (in.startsWith("http")) {
-        //todo fails to load .gif?
-        img = new ImageFacade(URLImageLoader.load(in))
-      }
-      else {
-        img = new ImageFacade(PathImageLoader.load(in))
-      }
-    } catch {
-      case e: Throwable => println("--ERROR--\nFailed to load this file, make sure the file exist\n" + e)
+  override def setInput(in: String): Unit =
+    //todo change it to addFilter way & have a separate command in the consoleView "--image-url"
+    try if (in.startsWith("http"))
+      //todo fails to load .gif?
+      img = new ImageFacade(URLImageLoader.load(in))
+    else
+      img = new ImageFacade(PathImageLoader.load(in))
+    catch {
+      case e: Throwable =>
+        println(
+          "--ERROR--\nFailed to load this file, make sure the file exist\n" + e)
         //todo do this better?
         throw new Exception()
     }
-  }
 
   /**
    * Sets the output for the ASCII Art image
    *
    * @param out path for output or null for console
    */
-  override def setOutput(out: String): Unit = {
+  override def setOutput(out: String): Unit =
     if (out == null)
       exporter = new StdOutputExporter
     else
       exporter = new FileOutputExporter(new File(out))
-  }
 
-  override def addFilter(filter: GSPixelFilter): Unit = {
-    //todo check if filter argument is ok and return bool?
-    pixelFilters += filter
-  }
+  override def addFilter(filter: ImageFilter): Unit = imageFilters += filter
 
-  override def addFilter(filter: PixelGridFilter): Unit = {
-    gridFilters += filter
-  }
+//  override def addFilter(filter: PixelFilter): Unit =
+//    //todo check if filter argument is ok and return bool?
+//    pixelFilters += filter
+//
+//  override def addFilter(filter: PixelGridFilter): Unit =
+//    gridFilters += filter
 
   override def executeCommands(): Unit = {
-    img.applyFilters(pixelFilters.result(), gridFilters.result())
-    img.transform()
+//    img.applyFilters(pixelFilters.result(), gridFilters.result())
+    img.applyFilters(imageFilters.result())
+    img.transformToASCII()
   }
 
-  override def export(): Unit = {
+  override def export(): Unit =
     exporter.export(img.toString)
-  }
 }

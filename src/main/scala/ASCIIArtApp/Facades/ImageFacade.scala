@@ -1,63 +1,56 @@
 package ASCIIArtApp.Facades
 
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
-import ASCIIArtApp.Models.PixelGrid.PixelGrid
-import ImageFilters.{GSPixelFilter, PixelGridFilter}
+import ASCIIArtApp.Models.PixelGrid
+import ImageFilters.ImageFilter
 
 import java.awt.Color
 import java.awt.image.BufferedImage
 import scala.collection.mutable.ListBuffer
 
 class ImageFacade(bi: BufferedImage) {
-  private var rgbImg: PixelGrid[RGBPixel] = _
-  private var gsImg: PixelGrid[GSPixel] = _
-  private var asciiImg: PixelGrid[CharPixel] = _
   private val height = bi.getHeight
   private val width = bi.getWidth
   private val tmp = ListBuffer.empty[List[RGBPixel]]
 
   for (h <- 0 until height) {
     val row = new ListBuffer[RGBPixel]
-    for (w <- 0 until width) {
-      val color = new Color(bi.getRGB(w, h))
-      row += RGBPixel(color.getRed, color.getGreen, color.getBlue)
-    }
+    for (w <- 0 until width)
+//      val color = new Color(bi.getRGB(w, h))
+      row += RGBPixel(new Color(bi.getRGB(w, h)))
     tmp += row.result()
   }
   private val pixels = tmp.result()
-  rgbImg = new PixelGrid(pixels)
+  private val rgbImg = new PixelGrid[RGBPixel](pixels)
+  private var gsImg: PixelGrid[GSPixel] = _
+  private var asciiImg: PixelGrid[CharPixel] = _
 
-  def applyFilters(filters: List[GSPixelFilter], gridFilters: List[PixelGridFilter]): Unit = {
-    //todo create some filter executor/handler/controller class?
+  def applyFilters(filters: List[ImageFilter]): Unit = {
     gsImg = toGrayScale
-
-    for (i <- gridFilters) {
+    for (i <- filters)
       gsImg = i.apply(gsImg)
-    }
-    for (i <- filters) {
-      gsImg = gsImg.applyFilterOnPixel(i.apply)
-    }
   }
 
-  def transform(): Unit = {
-    val charRamp = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+  def transformToASCII(): Unit = {
+    val charRamp =
+      "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
     val tmpChars = ListBuffer.empty[List[CharPixel]]
     for (h <- 0 until height) {
       val row = ListBuffer.empty[CharPixel]
       for (w <- 0 until width) {
         val pixel = CharPixel(
-          charRamp.charAt((charRamp.length - 1) * gsImg.getPixels(h)(w).get() / 255))
+          charRamp.charAt(
+            (charRamp.length - 1) * gsImg.getPixels(h)(w).get() / 255))
         row += pixel
       }
       tmpChars += row.result()
     }
-    asciiImg = new PixelGrid(tmpChars.result())
+    asciiImg = new PixelGrid[CharPixel](tmpChars.result())
   }
 
-  override def toString: String = {
+  override def toString: String =
     asciiImg.print
-  }
 
   private def toGrayScale: PixelGrid[GSPixel] = {
     val res = ListBuffer.empty[List[GSPixel]]
@@ -65,12 +58,12 @@ class ImageFacade(bi: BufferedImage) {
       val row = ListBuffer.empty[GSPixel]
       for (w <- 0 until width) {
         val rgb = pixels(h)(w).get()
-        val gsVal = (0.3 * rgb._1) + (0.59 * rgb._2) + (0.11 * rgb._3)
+        val gsVal = (0.3 * rgb.getRed) + (0.59 * rgb.getGreen) + (0.11 * rgb.getBlue)
         val pixel = GSPixel(gsVal.toInt)
         row += pixel
       }
       res += row.result()
     }
-    new PixelGrid(res.result())
+    new PixelGrid[GSPixel](res.result())
   }
 }

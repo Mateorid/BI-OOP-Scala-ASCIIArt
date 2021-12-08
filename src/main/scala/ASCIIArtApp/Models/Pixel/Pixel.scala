@@ -1,5 +1,7 @@
 package ASCIIArtApp.Models.Pixel
 
 trait Pixel {
-  def get(): Any
+  val value: Any
+//  def get(): _
+  def print(): String = value.toString
 }
