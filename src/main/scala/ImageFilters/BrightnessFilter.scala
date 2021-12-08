@@ -2,7 +2,7 @@ package ImageFilters
 
 import ASCIIArtApp.Models.Pixel.{GSPixel, Pixel}
 
-class BrightnessFilter(value: Int) extends PixelFilter[GSPixel] {
+class BrightnessFilter(value: Int) extends PixelFilter {
 
   /**
    * Applies a filter on provided item

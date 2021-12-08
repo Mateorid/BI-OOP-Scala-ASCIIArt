@@ -2,7 +2,6 @@ package ASCIIArtApp.Console.Controller
 
 import ASCIIArtApp.Facades.ImageFacade
 import ASCIIArtApp.Loaders.{ImageLoader, PathImageLoader, URLImageLoader}
-import ASCIIArtApp.Models.PixelGrid.GSGrid
 import Exporters.{FileOutputExporter, StdOutputExporter, TextExporter}
 import ImageFilters.{Filter, ImageFilter, PixelFilter}
 
@@ -12,9 +11,7 @@ import scala.collection.mutable.ListBuffer
 class ConsoleController extends Controller {
   private var img: ImageFacade = _
   private var exporter: TextExporter = _
-//  private val pixelFilters = ListBuffer.empty[PixelFilter]
-//  private val gridFilters = ListBuffer.empty[PixelGridFilter]
-  private var imageFilters = Seq.empty[ImageFilter[_]]
+  private var imageFilters = ListBuffer.empty[ImageFilter]
 
   /**
    * Shows a help on show to use the UI
@@ -33,7 +30,7 @@ class ConsoleController extends Controller {
    * @param in URL or path to image
    */
   override def setInput(in: String): Unit =
-    //todo change it to addFilter way & have a separate command in the consoleView "--imgage-url"
+    //todo change it to addFilter way & have a separate command in the consoleView "--image-url"
     try if (in.startsWith("http"))
       //todo fails to load .gif?
       img = new ImageFacade(URLImageLoader.load(in))
@@ -58,8 +55,7 @@ class ConsoleController extends Controller {
     else
       exporter = new FileOutputExporter(new File(out))
 
-  override def addFilter(filter: ImageFilter[_]): Unit =
-    imageFilters = imageFilters :+ (filter)
+  override def addFilter(filter: ImageFilter): Unit = imageFilters += filter
 
 //  override def addFilter(filter: PixelFilter): Unit =
 //    //todo check if filter argument is ok and return bool?
@@ -70,8 +66,8 @@ class ConsoleController extends Controller {
 
   override def executeCommands(): Unit = {
 //    img.applyFilters(pixelFilters.result(), gridFilters.result())
-    img.applyFilters(imageFilters)
-    img.transform()
+    img.applyFilters(imageFilters.result())
+    img.transformToASCII()
   }
 
   override def export(): Unit =

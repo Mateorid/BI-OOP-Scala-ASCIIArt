@@ -1,22 +1,21 @@
-package ASCIIArtApp.Models.PixelGrid
+package ASCIIArtApp.Models
 
 import ASCIIArtApp.Models.Pixel.Pixel
+
 import scala.collection.mutable.ListBuffer
 
-//todo to trait
-class PixelGrid[T <: Pixel[_]](pixelRows: List[List[T]]) {
-  val height: Int = pixelRows.size
-  val width: Int = pixelRows(1).length
+class PixelGrid[T <: Pixel](private val pixels: List[List[T]]) {
+  val height: Int = pixels.size
 
   def getPixels: List[List[T]] =
-    pixelRows
+    pixels
 
   def applyFilterOnPixel(filter: T => T): PixelGrid[T] = {
     val res = ListBuffer.empty[List[T]]
     for (i <- 0 until height) {
       val row = ListBuffer.empty[T]
-      for (j <- 0 until width) {
-        val pixel = filter(pixelRows(i)(j))
+      for (j <- pixels(i).indices) {
+        val pixel = filter(pixels(i)(j))
         row += pixel
       }
       res += row.result()
@@ -27,8 +26,8 @@ class PixelGrid[T <: Pixel[_]](pixelRows: List[List[T]]) {
   def print: String = {
     var res: String = ""
     for (i <- 0 until height) {
-      for (j <- 0 until width)
-        res += pixelRows(i)(j).get()
+      for (j <- pixels(i).indices)
+        res += pixels(i)(j).print()
       res += "\n"
     }
     res

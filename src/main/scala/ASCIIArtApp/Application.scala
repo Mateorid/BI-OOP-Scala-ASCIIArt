@@ -14,7 +14,7 @@ class Application {
       controller.export()
       //todo finish this?
     } catch {
-      case _: Exception => println("--ERROR--")
+      case e: Exception => println("--ERROR--" + e)
     }
   }
 

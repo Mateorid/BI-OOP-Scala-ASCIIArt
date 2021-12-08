@@ -1,6 +1,5 @@
 package ASCIIArtApp.Console.Controller
 
-import ASCIIArtApp.Models.PixelGrid.GSGrid
 import ImageFilters.{Filter, ImageFilter, PixelFilter}
 
 trait Controller {
@@ -24,7 +23,7 @@ trait Controller {
    */
   def setOutput(out: String): Unit
 
-  def addFilter(filter: ImageFilter[_]): Unit
+  def addFilter(filter: ImageFilter): Unit
 //  def addFilter(filter: PixelFilter): Unit
 //
 //  def addFilter(filter: PixelGridFilter): Unit

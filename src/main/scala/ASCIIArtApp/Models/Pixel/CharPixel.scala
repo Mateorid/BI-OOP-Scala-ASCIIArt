@@ -1,7 +1,6 @@
 package ASCIIArtApp.Models.Pixel
 
-case class CharPixel(char: Char) extends Pixel[Char] {
-  override def get(): Char = {
-    char
-  }
+case class CharPixel(value: Char) extends Pixel {
+
+  def get(): Char = value
 }

@@ -1,11 +1,11 @@
 package ImageFilters
 
 import ASCIIArtApp.Models.Pixel.GSPixel
-import ASCIIArtApp.Models.PixelGrid.{GSGrid, PixelGrid}
+import ASCIIArtApp.Models.PixelGrid
 
 import scala.collection.mutable.ListBuffer
 
-class RotateImageFilter(degrees: Int) extends PixelGridFilter[GSGrid] {
+class RotateImageFilter(degrees: Int) extends ImageFilter {
 
   /**
    * Applies a filter on provided item
@@ -13,7 +13,7 @@ class RotateImageFilter(degrees: Int) extends PixelGridFilter[GSGrid] {
    * @param item input
    * @return item with applied filter
    */
-  override def apply(item: GSGrid): GSGrid = {
+  override def apply(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
     val actualDegrees: Int = degrees % 360
 
     actualDegrees match {
@@ -26,31 +26,57 @@ class RotateImageFilter(degrees: Int) extends PixelGridFilter[GSGrid] {
     }
   }
 
-  private def rotateLeft(item: GSGrid): GSGrid = {
+  private def rotateLeft(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
     val res = ListBuffer.empty[List[GSPixel]]
     for (j <- item.height - 1 to 0 by -1) {
       val newRow = ListBuffer.empty[GSPixel]
-      for (i <- 0 until item.width) {
-        val pixel: GSPixel = item.getPixels(i)(j)
+      for (i <- item.getPixels(j).indices) {
+        val pixel: GSPixel = item.getPixels(i)(j) //todo how tf does this actually work??? XDD
         newRow += pixel
       }
       res += newRow.result()
     }
-    new GSGrid(res.result())
+    new PixelGrid[GSPixel](res.result())
   }
 
-  private def rotateRight(item: GSGrid): GSGrid = {
+  private def rotateRight(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
     val res = ListBuffer.empty[List[GSPixel]]
     for (j <- 0 until item.height) {
       val newRow = ListBuffer.empty[GSPixel]
-      for (i <- item.width - 1 to 0 by -1) {
+      for (i <- item.getPixels(j).length - 1 to 0 by -1) {
         val pixel: GSPixel = item.getPixels(i)(j)
         newRow += pixel
       }
       res += newRow.result()
     }
-    new GSGrid(res.result())
+    new PixelGrid[GSPixel](res.result())
   }
+//  private def rotateLeft(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
+//    val res = ListBuffer.empty[List[GSPixel]]
+//    for (j <- item.height - 1 to 0 by -1) {
+//      val newRow = ListBuffer.empty[GSPixel]
+//      for (i <- 0 until item.width) {
+//        val pixel: GSPixel = item.getPixels(i)(j)
+//        newRow += pixel
+//      }
+//      res += newRow.result()
+//    }
+//    new PixelGrid[GSPixel](res.result())
+//  }
+//
+//  private def rotateRight(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
+//    val res = ListBuffer.empty[List[GSPixel]]
+//    for (j <- 0 until item.height) {
+//      val newRow = ListBuffer.empty[GSPixel]
+//      for (i <- item.width - 1 to 0 by -1) {
+//        val pixel: GSPixel = item.getPixels(i)(j)
+//        newRow += pixel
+//      }
+//      res += newRow.result()
+//    }
+//    new PixelGrid[GSPixel](res.result())
+//  }
+
   //todo this mirrors the image XD
   //  private def rotateLeft(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
   //    val res = ListBuffer.empty[List[GSPixel]]

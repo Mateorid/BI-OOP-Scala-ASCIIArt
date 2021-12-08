@@ -1,5 +1,6 @@
 package ImageFilters
 
-import ASCIIArtApp.Models.PixelGrid.PixelGrid
+import ASCIIArtApp.Models.Pixel.GSPixel
+import ASCIIArtApp.Models.PixelGrid
 
-trait ImageFilter[T <: PixelGrid[_]] extends Filter[T] {}
+trait ImageFilter extends Filter[PixelGrid[GSPixel]] {}

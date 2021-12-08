@@ -1,13 +1,12 @@
 package ImageFilters
 
-import ASCIIArtApp.Models.Pixel.{GSPixel, Pixel}
-import ASCIIArtApp.Models.PixelGrid.PixelGrid
+import ASCIIArtApp.Models.Pixel.GSPixel
+import ASCIIArtApp.Models.PixelGrid
 
-trait PixelFilter[T <: Pixel[_]] extends ImageFilter[PixelGrid[T]] {
+trait PixelFilter extends ImageFilter {
 
-  override def apply(item: PixelGrid[T]): PixelGrid[T] =
+  override def apply(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] =
     item.applyFilterOnPixel(applyOnPixel)
 
-  //todo how to fix this - again problem with the pixels
-  protected def applyOnPixel(pixel: T): T
+  protected def applyOnPixel(pixel: GSPixel): GSPixel
 }
