@@ -12,7 +12,7 @@ class PixelTest extends FunSuite {
   private val gsPixel = GSPixel(420)
 
   test("testRGBPixel") {
-    assert(rgbPixel.get == (123, 456, 789))
+    assert(rgbPixel.get == new Color(123, 123, 123))
   }
 
   test("testCharPixel") {
