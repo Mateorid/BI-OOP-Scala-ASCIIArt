@@ -1,11 +1,11 @@
 package ImageFilters
 
 import ASCIIArtApp.Models.Pixel.GSPixel
-import ASCIIArtApp.Models.PixelGrid.PixelGrid
+import ASCIIArtApp.Models.PixelGrid.{GSGrid, PixelGrid}
 
 import scala.collection.mutable.ListBuffer
 
-class RotateImageFilter(degrees: Int) extends ImageFilter {
+class RotateImageFilter(degrees: Int) extends PixelGridFilter[GSGrid] {
 
   /**
    * Applies a filter on provided item
@@ -13,7 +13,7 @@ class RotateImageFilter(degrees: Int) extends ImageFilter {
    * @param item input
    * @return item with applied filter
    */
-  override def apply(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
+  override def apply(item: GSGrid): GSGrid = {
     val actualDegrees: Int = degrees % 360
 
     actualDegrees match {
@@ -26,7 +26,7 @@ class RotateImageFilter(degrees: Int) extends ImageFilter {
     }
   }
 
-  private def rotateLeft(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
+  private def rotateLeft(item: GSGrid): GSGrid = {
     val res = ListBuffer.empty[List[GSPixel]]
     for (j <- item.height - 1 to 0 by -1) {
       val newRow = ListBuffer.empty[GSPixel]
@@ -36,10 +36,10 @@ class RotateImageFilter(degrees: Int) extends ImageFilter {
       }
       res += newRow.result()
     }
-    new PixelGrid[GSPixel](res.result())
+    new GSGrid(res.result())
   }
 
-  private def rotateRight(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
+  private def rotateRight(item: GSGrid): GSGrid = {
     val res = ListBuffer.empty[List[GSPixel]]
     for (j <- 0 until item.height) {
       val newRow = ListBuffer.empty[GSPixel]
@@ -49,7 +49,7 @@ class RotateImageFilter(degrees: Int) extends ImageFilter {
       }
       res += newRow.result()
     }
-    new PixelGrid[GSPixel](res.result())
+    new GSGrid(res.result())
   }
   //todo this mirrors the image XD
   //  private def rotateLeft(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {

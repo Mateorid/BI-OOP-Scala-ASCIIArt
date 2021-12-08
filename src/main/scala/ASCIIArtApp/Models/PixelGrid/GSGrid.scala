@@ -2,4 +2,5 @@ package ASCIIArtApp.Models.PixelGrid
 
 import ASCIIArtApp.Models.Pixel.GSPixel
 
-//class GSGrid() extends PixelGrid[GSPixel](List.empty[List[GSPixel]]) {}
+class GSGrid(pixelRows: List[List[GSPixel]])
+    extends PixelGrid[GSPixel](pixelRows) {}

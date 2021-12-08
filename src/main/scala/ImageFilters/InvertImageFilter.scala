@@ -5,7 +5,8 @@ import ASCIIArtApp.Models.PixelGrid.PixelGrid
 
 import scala.collection.mutable.ListBuffer
 
-class InvertImageFilter extends PixelFilter {
+class InvertImageFilter extends PixelFilter[GSPixel] {
+
   /**
    * Applies a filter on provided item
    *

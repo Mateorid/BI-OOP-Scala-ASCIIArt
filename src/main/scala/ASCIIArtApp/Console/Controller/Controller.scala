@@ -1,5 +1,6 @@
 package ASCIIArtApp.Console.Controller
 
+import ASCIIArtApp.Models.PixelGrid.GSGrid
 import ImageFilters.{Filter, ImageFilter, PixelFilter}
 
 trait Controller {

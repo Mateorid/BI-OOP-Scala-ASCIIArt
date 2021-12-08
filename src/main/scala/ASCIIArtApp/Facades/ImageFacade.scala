@@ -1,7 +1,7 @@
 package ASCIIArtApp.Facades
 
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
-import ASCIIArtApp.Models.PixelGrid.PixelGrid
+import ASCIIArtApp.Models.PixelGrid.{CharGrid, GSGrid, PixelGrid, RGBGrid}
 import ImageFilters.{ImageFilter, PixelFilter}
 
 import java.awt.Color
@@ -9,9 +9,9 @@ import java.awt.image.BufferedImage
 import scala.collection.mutable.ListBuffer
 
 class ImageFacade(bi: BufferedImage) {
-  private var rgbImg: PixelGrid[RGBPixel] = _
-  private var gsImg: PixelGrid[GSPixel] = _
-  private var asciiImg: PixelGrid[CharPixel] = _
+  private var rgbImg: RGBGrid = _
+  private var gsImg: GSGrid = _
+  private var asciiImg: CharGrid = _
   private val height = bi.getHeight
   private val width = bi.getWidth
   private val tmp = ListBuffer.empty[List[RGBPixel]]
@@ -25,14 +25,14 @@ class ImageFacade(bi: BufferedImage) {
     tmp += row.result()
   }
   private val pixels = tmp.result()
-  rgbImg = new PixelGrid(pixels)
+  rgbImg = RGBGrid(pixels)
 
 //  def applyFilters(filters: List[PixelFilter], gridFilters: List[PixelGridFilter]): Unit = {
-  def applyFilters(filters: Seq[ImageFilter[_]]): Unit = {
+  def applyFilters(filters: Seq[ImageFilter[GSGrid]]): Unit = {
     //todo create some filter executor/handler/controller class?
     gsImg = toGrayScale
     for (i <- filters)
-      gsImg=i.apply(gsImg)
+      gsImg = i.apply(gsImg)
 
 //    for (i <- gridFilters)
 //      gsImg = i.apply(gsImg)
@@ -55,13 +55,13 @@ class ImageFacade(bi: BufferedImage) {
       }
       tmpChars += row.result()
     }
-    asciiImg = new PixelGrid(tmpChars.result())
+    asciiImg = CharGrid(tmpChars.result())
   }
 
   override def toString: String =
     asciiImg.print
 
-  private def toGrayScale: PixelGrid[GSPixel] = {
+  private def toGrayScale: GSGrid = {
     val res = ListBuffer.empty[List[GSPixel]]
     for (h <- 0 until height) {
       val row = ListBuffer.empty[GSPixel]
@@ -73,6 +73,6 @@ class ImageFacade(bi: BufferedImage) {
       }
       res += row.result()
     }
-    new PixelGrid(res.result())
+    new GSGrid(res.result())
   }
 }

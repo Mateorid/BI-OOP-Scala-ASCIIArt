@@ -1,11 +1,12 @@
 package ASCIIArtApp.Console.Views
 
 import ASCIIArtApp.Console.Controller.Controller
-import ImageFilters.{BrightnessFilter, InvertImageFilter, RotateImageFilter}
+import ImageFilters.{BrightnessFilter, FilterHandler, InvertImageFilter, RotateImageFilter}
 
 import scala.collection.mutable.ListBuffer
 
 class ConsoleView(controller: Controller) {
+  //todo delete
 
   //todo create Trait for View with applyCommands ?
   def loadCommands(commands: Array[String]): Unit = {

@@ -2,6 +2,7 @@ package ASCIIArtApp.Console.Controller
 
 import ASCIIArtApp.Facades.ImageFacade
 import ASCIIArtApp.Loaders.{ImageLoader, PathImageLoader, URLImageLoader}
+import ASCIIArtApp.Models.PixelGrid.GSGrid
 import Exporters.{FileOutputExporter, StdOutputExporter, TextExporter}
 import ImageFilters.{Filter, ImageFilter, PixelFilter}
 

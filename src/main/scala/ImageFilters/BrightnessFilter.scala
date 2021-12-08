@@ -1,9 +1,8 @@
 package ImageFilters
 
 import ASCIIArtApp.Models.Pixel.{GSPixel, Pixel}
-import ASCIIArtApp.Models.PixelGrid.PixelGrid
 
-class BrightnessFilter(value: Int) extends PixelFilter {
+class BrightnessFilter(value: Int) extends PixelFilter[GSPixel] {
 
   /**
    * Applies a filter on provided item
