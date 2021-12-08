@@ -1,5 +1,5 @@
 package ASCIIArtApp.Models.Pixel
 
-trait Pixel {
-  def get(): Any
+trait Pixel[T] {
+  def get(): T
 }

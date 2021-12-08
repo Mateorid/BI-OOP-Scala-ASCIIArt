@@ -2,7 +2,7 @@ package ASCIIArtApp.Facades
 
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
 import ASCIIArtApp.Models.PixelGrid.PixelGrid
-import ImageFilters.{GSPixelFilter, PixelGridFilter}
+import ImageFilters.{ImageFilter, PixelFilter}
 
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -27,27 +27,30 @@ class ImageFacade(bi: BufferedImage) {
   private val pixels = tmp.result()
   rgbImg = new PixelGrid(pixels)
 
-  def applyFilters(filters: List[GSPixelFilter], gridFilters: List[PixelGridFilter]): Unit = {
+//  def applyFilters(filters: List[PixelFilter], gridFilters: List[PixelGridFilter]): Unit = {
+  def applyFilters(filters: Seq[ImageFilter[_]]): Unit = {
     //todo create some filter executor/handler/controller class?
     gsImg = toGrayScale
+    for (i <- filters)
+      gsImg=i.apply(gsImg)
 
-    for (i <- gridFilters) {
-      gsImg = i.apply(gsImg)
-    }
-    for (i <- filters) {
-      gsImg = gsImg.applyFilterOnPixel(i.apply)
-    }
+//    for (i <- gridFilters)
+//      gsImg = i.apply(gsImg)
+//    for (i <- filters)
+//      gsImg = gsImg.applyFilterOnPixel(i.apply)
   }
 
   def transform(): Unit = {
-    val charRamp = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+    val charRamp =
+      "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
     val tmpChars = ListBuffer.empty[List[CharPixel]]
     for (h <- 0 until height) {
       val row = ListBuffer.empty[CharPixel]
       for (w <- 0 until width) {
         val pixel = CharPixel(
-          charRamp.charAt((charRamp.length - 1) * gsImg.getPixels(h)(w).get() / 255))
+          charRamp.charAt(
+            (charRamp.length - 1) * gsImg.getPixels(h)(w).get() / 255))
         row += pixel
       }
       tmpChars += row.result()
@@ -55,9 +58,8 @@ class ImageFacade(bi: BufferedImage) {
     asciiImg = new PixelGrid(tmpChars.result())
   }
 
-  override def toString: String = {
+  override def toString: String =
     asciiImg.print
-  }
 
   private def toGrayScale: PixelGrid[GSPixel] = {
     val res = ListBuffer.empty[List[GSPixel]]
