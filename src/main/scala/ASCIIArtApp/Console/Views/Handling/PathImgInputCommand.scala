@@ -1,6 +1,6 @@
 package ASCIIArtApp.Console.Views.Handling
 
-import ASCIIArtApp.Console.Controller.Controller
+import ASCIIArtApp.UI.Controller.Controller
 
 class PathImgInputCommand(controller: Controller)
     extends RegExpCommandHandler("--image (...\\S*)".r) {

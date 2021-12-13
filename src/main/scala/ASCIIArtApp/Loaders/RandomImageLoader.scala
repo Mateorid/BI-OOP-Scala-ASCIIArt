@@ -1,9 +1,9 @@
 package ASCIIArtApp.Loaders
 
-import java.awt.image.BufferedImage
+import ASCIIArtApp.Models.Image.Image
+import ASCIIArtApp.Models.Pixel.RGBPixel
 
 object RandomImageLoader extends ImageLoader {
-  //todo
 
   /**
    * Loads from source to BufferedImage
@@ -11,7 +11,7 @@ object RandomImageLoader extends ImageLoader {
    * @param imageSource item to be loaded
    * @return buffered image of the image provided
    */
-  override def load(imageSource: String): BufferedImage = {
+  override def load(imageSource: String): Image[RGBPixel] = {
     //todo
     null
   }

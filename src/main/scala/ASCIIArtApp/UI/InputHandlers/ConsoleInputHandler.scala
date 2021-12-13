@@ -1,21 +1,24 @@
-package ASCIIArtApp.Console.Views
+package ASCIIArtApp.UI.InputHandlers
 
-import ASCIIArtApp.Console.Controller.Controller
+import ASCIIArtApp.UI.Controller.ConsoleController
 import ImageFilters.{BrightnessFilter, InvertImageFilter, RotateImageFilter}
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.ArrayBuffer
 
-class ConsoleView(controller: Controller) {
-  //todo create Trait for View with applyCommands ?
-  def loadCommands(commands: Array[String]): Unit = {
+class ConsoleInputHandler(controller: ConsoleController) extends InputHandler[Array[String]] {
+
+  def handleInput(commands: Array[String]): Unit = {
     val parsed = parseCommands(commands)
 
     for (i <- parsed)
       processCommand(i)
+
+    controller.executeCommands()
+    controller.export()
   }
 
-  private def parseCommands(commands: Array[String]): List[String] = {
-    val parsed = new ListBuffer[String]
+  private def parseCommands(commands: Array[String]): Array[String] = {
+    val parsed = new ArrayBuffer[String]
     var cmd = new String
     var lastWasArg = false
 
@@ -36,18 +39,18 @@ class ConsoleView(controller: Controller) {
     if (cmd != "")
       parsed += cmd
 
-    parsed.result()
+    parsed.toArray
   }
 
   private def processCommand(command: String): Unit = {
-    //todo change this to the labs version
+    //todo change this to the labs version?
     //Input file
     if (command.startsWith("--image-url")) {
       controller.setInput(command.substring(8))
       return
     }
     else if (command.startsWith("--image-random")) {
-      //todo
+      controller.setInput(null)
     }
     else if (command.startsWith("--image")) {
       //todo check for filetype we cant handle .png for example
@@ -81,7 +84,6 @@ class ConsoleView(controller: Controller) {
       return
     }
     command match {
-      //      case "--rotate" + _ =>
       case "--invert" =>
         controller.addFilter(new InvertImageFilter)
       case _ => throw new Exception("Incorrect command, use \"help\" for help")

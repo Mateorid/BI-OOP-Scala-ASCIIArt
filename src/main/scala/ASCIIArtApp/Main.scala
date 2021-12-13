@@ -1,14 +1,18 @@
-package ASCIIArtApp.Console
-
-import ASCIIArtApp.Application
+package ASCIIArtApp
 
 object Main extends App {
 
   val app = new Application
   app.run(Main.args)
 
+  //todo-----otazky----
+  //how to fix having the problem with Pixel/PixelGrids & filters .get() / .value or something
+  //v pixel filteru jde nejak nastavi o jaky typ pixelu se jedna pomoci method generics?
+
+
+  //todo ----- change Console controller to ApplicationController at let it control everything?
+
   //todo fuck this all and do filters only on grayscale image
-  //todo how to fix having the problem with Pixel/PixelGrids & filters
   //todo extend pixelGrid with Image classes based
   //todo change List to Seq
   //todo better OOP style filters - Matej

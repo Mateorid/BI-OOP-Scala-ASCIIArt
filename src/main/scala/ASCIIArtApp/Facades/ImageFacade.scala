@@ -2,30 +2,19 @@ package ASCIIArtApp.Facades
 
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
 import ASCIIArtApp.Models.PixelGrid
-import ImageFilters.ImageFilter
+import ImageFilters.PixelGridFilter
 
 import java.awt.Color
 import java.awt.image.BufferedImage
 import scala.collection.mutable.ListBuffer
 
-class ImageFacade(bi: BufferedImage) {
-  private val height = bi.getHeight
-  private val width = bi.getWidth
-  private val tmp = ListBuffer.empty[List[RGBPixel]]
+class ImageFacade {
 
-  for (h <- 0 until height) {
-    val row = new ListBuffer[RGBPixel]
-    for (w <- 0 until width)
-//      val color = new Color(bi.getRGB(w, h))
-      row += RGBPixel(new Color(bi.getRGB(w, h)))
-    tmp += row.result()
-  }
-  private val pixels = tmp.result()
-  private val rgbImg = new PixelGrid[RGBPixel](pixels)
+  private var rgbImg: PixelGrid[RGBPixel] = _
   private var gsImg: PixelGrid[GSPixel] = _
   private var asciiImg: PixelGrid[CharPixel] = _
 
-  def applyFilters(filters: List[ImageFilter]): Unit = {
+  def applyFilters(filters: List[PixelGridFilter]): Unit = {
     gsImg = toGrayScale
     for (i <- filters)
       gsImg = i.apply(gsImg)
@@ -46,7 +35,7 @@ class ImageFacade(bi: BufferedImage) {
       }
       tmpChars += row.result()
     }
-    asciiImg = new PixelGrid[CharPixel](tmpChars.result())
+    asciiImg = new PixelGrid(tmpChars.result())
   }
 
   override def toString: String =

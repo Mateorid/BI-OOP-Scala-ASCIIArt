@@ -1,8 +1,9 @@
-package ASCIIArtApp.Console.Controller
+package ASCIIArtApp.UI.Controller
 
-import ImageFilters.{Filter, ImageFilter, PixelFilter}
+import ASCIIArtApp.Models.Pixel.Pixel
+import ImageFilters.{Filter, PixelGridFilter}
 
-trait Controller {
+trait Controller[T, Y] {
 
   /**
    * Shows a help on show to use the UI
@@ -23,10 +24,7 @@ trait Controller {
    */
   def setOutput(out: String): Unit
 
-  def addFilter(filter: ImageFilter): Unit
-//  def addFilter(filter: PixelFilter): Unit
-//
-//  def addFilter(filter: PixelGridFilter): Unit
+  def addFilter(filter: Filter[T, Y]): Unit
 
   def executeCommands(): Unit
 

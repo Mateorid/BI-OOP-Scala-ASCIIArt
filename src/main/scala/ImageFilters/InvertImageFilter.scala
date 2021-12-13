@@ -1,11 +1,8 @@
 package ImageFilters
 
 import ASCIIArtApp.Models.Pixel.GSPixel
-import ASCIIArtApp.Models.PixelGrid
 
-import scala.collection.mutable.ListBuffer
-
-class InvertImageFilter extends PixelFilter {
+class InvertImageFilter extends PixelFilter[GSPixel, GSPixel] {
 
   /**
    * Applies a filter on provided item
@@ -14,5 +11,5 @@ class InvertImageFilter extends PixelFilter {
    * @return item with applied filter
    */
   override def applyOnPixel(item: GSPixel): GSPixel =
-    GSPixel(255 - item.get())
+    GSPixel(255 - item.print().toInt)
 }

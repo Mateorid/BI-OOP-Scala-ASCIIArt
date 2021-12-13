@@ -1,12 +1,12 @@
 package ImageFilters
 
-import ASCIIArtApp.Models.Pixel.GSPixel
+import ASCIIArtApp.Models.Pixel.{GSPixel, Pixel}
 import ASCIIArtApp.Models.PixelGrid
 
-trait PixelFilter extends ImageFilter {
+trait PixelFilter[T <: Pixel, Y <: Pixel] extends PixelGridFilter[T, Y] {
 
-  override def apply(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] =
-    item.applyFilterOnPixel(applyOnPixel)
+  override def apply(item: PixelGrid[T]): PixelGrid[Y] =
+    item.transform(applyOnPixel)
 
-  protected def applyOnPixel(pixel: GSPixel): GSPixel
+  protected def applyOnPixel(pixel: T): Y
 }
