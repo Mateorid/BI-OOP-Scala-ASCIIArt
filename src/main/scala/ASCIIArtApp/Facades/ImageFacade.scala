@@ -1,58 +1,47 @@
 package ASCIIArtApp.Facades
 
+import ASCIIArtApp.Models.Image.Image
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
-import ASCIIArtApp.Models.PixelGrid
-import ImageFilters.PixelGridFilter
-
-import java.awt.Color
-import java.awt.image.BufferedImage
-import scala.collection.mutable.ListBuffer
+import ImageFilters.{GSToASCIIFilter, PixelGridFilter, RGBToGSFilter}
 
 class ImageFacade {
 
-  private var rgbImg: PixelGrid[RGBPixel] = _
-  private var gsImg: PixelGrid[GSPixel] = _
-  private var asciiImg: PixelGrid[CharPixel] = _
+  private var rgbImg: Option[Image[RGBPixel]] = None
+  private var gsImg: Option[Image[GSPixel]] = None
+  private var asciiImg: Option[Image[CharPixel]] = None
 
-  def applyFilters(filters: List[PixelGridFilter]): Unit = {
-    gsImg = toGrayScale
+  def setRGB(image: Image[RGBPixel]): Unit = rgbImg = Option.apply(image)
+
+  def setGS(image: Image[GSPixel]): Unit = gsImg = Option.apply(image)
+
+  def setASCII(image: Image[CharPixel]): Unit = asciiImg = Option.apply(image)
+
+  def getRGB: Option[Image[RGBPixel]] = rgbImg
+
+  def getGS: Option[Image[GSPixel]] = gsImg
+
+  def getASCII: Option[Image[CharPixel]] = asciiImg
+
+
+  def applyFilters(filters: List[PixelGridFilter[GSPixel, GSPixel]]): Unit = {
+    if (gsImg.isEmpty) {
+      gsImg = Option.apply(toGrayScale)
+    }
     for (i <- filters)
-      gsImg = i.apply(gsImg)
+      gsImg.get.applyGridFilter(i.apply)
   }
 
-  def transformToASCII(): Unit = {
-    val charRamp =
-      "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
-
-    val tmpChars = ListBuffer.empty[List[CharPixel]]
-    for (h <- 0 until height) {
-      val row = ListBuffer.empty[CharPixel]
-      for (w <- 0 until width) {
-        val pixel = CharPixel(
-          charRamp.charAt(
-            (charRamp.length - 1) * gsImg.getPixels(h)(w).get() / 255))
-        row += pixel
-      }
-      tmpChars += row.result()
-    }
-    asciiImg = new PixelGrid(tmpChars.result())
+  private def transformToASCII: Image[CharPixel] = {
+    gsImg.get.applyGridFilter(GSToASCIIFilter.apply)
   }
 
-  override def toString: String =
-    asciiImg.print
+  private def toGrayScale: Image[GSPixel] = {
+    rgbImg.get.applyGridFilter(RGBToGSFilter.apply)
+  }
 
-  private def toGrayScale: PixelGrid[GSPixel] = {
-    val res = ListBuffer.empty[List[GSPixel]]
-    for (h <- 0 until height) {
-      val row = ListBuffer.empty[GSPixel]
-      for (w <- 0 until width) {
-        val rgb = pixels(h)(w).get()
-        val gsVal = (0.3 * rgb.getRed) + (0.59 * rgb.getGreen) + (0.11 * rgb.getBlue)
-        val pixel = GSPixel(gsVal.toInt)
-        row += pixel
-      }
-      res += row.result()
-    }
-    new PixelGrid[GSPixel](res.result())
+  override def toString: String = {
+    if (asciiImg.isEmpty)
+      asciiImg = Option.apply(transformToASCII)
+    asciiImg.get.toString
   }
 }

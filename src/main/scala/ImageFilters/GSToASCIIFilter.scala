@@ -2,7 +2,7 @@ package ImageFilters
 
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel}
 
-class GSToASCIIFilter extends PixelFilter[GSPixel, CharPixel] {
+object GSToASCIIFilter extends PixelFilter[GSPixel, CharPixel] {
   private val charRamp =
     "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
