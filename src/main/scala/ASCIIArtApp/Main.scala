@@ -10,7 +10,8 @@ object Main extends App {
   //v pixel filteru jde nejak nastavi o jaky typ pixelu se jedna pomoci method generics?
 
 
-  //todo ----- change Console controller to ApplicationController at let it control everything?
+  //todo RandomImg
+  //todo InputHandler more OOP
 
   //todo fuck this all and do filters only on grayscale image
   //todo extend pixelGrid with Image classes based
