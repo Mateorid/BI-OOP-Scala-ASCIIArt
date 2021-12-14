@@ -28,15 +28,15 @@ class ImageFacade {
       gsImg = Option.apply(toGrayScale)
     }
     for (i <- filters)
-      gsImg.get.applyGridFilter(i.apply)
+      gsImg = Option.apply(gsImg.get.applyGridFilter(i.applyFilter))
   }
 
   private def transformToASCII: Image[CharPixel] = {
-    gsImg.get.applyGridFilter(GSToASCIIFilter.apply)
+    gsImg.get.applyGridFilter(GSToASCIIFilter.applyFilter)
   }
 
   private def toGrayScale: Image[GSPixel] = {
-    rgbImg.get.applyGridFilter(RGBToGSFilter.apply)
+    rgbImg.get.applyGridFilter(RGBToGSFilter.applyFilter)
   }
 
   override def toString: String = {

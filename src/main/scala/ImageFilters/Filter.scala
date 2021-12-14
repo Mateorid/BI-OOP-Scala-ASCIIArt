@@ -7,5 +7,5 @@ trait Filter[T,Y] {
    * @param item input
    * @return item with applied filter
    */
-  def apply(item: T): Y
+  def applyFilter(item: T): Y
 }

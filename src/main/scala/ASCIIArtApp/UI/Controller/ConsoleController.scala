@@ -10,36 +10,25 @@ import ImageFilters.{Filter, PixelGridFilter}
 import java.io.File
 import scala.collection.mutable.ListBuffer
 
-class ConsoleController(img: ImageFacade) extends Controller[PixelGrid[GSPixel], PixelGrid[GSPixel]] {
+class ConsoleController(img: ImageFacade){ //todo extend from Controller - how?
   private var exporter: TextExporter = _
   private val imageFilters = ListBuffer.empty[PixelGridFilter[GSPixel, GSPixel]]
-
-  /**
-   * Shows a help on show to use the UI
-   */
-  override def showHelp(): Unit = {
-    //todo?
-    println("Use \"--image {input image path or URL}\" to set input image")
-    println("Use \"--output-console\" to use console as output stream")
-    println("Use \"--output-file {path}\" to output at given path")
-    println("Use \"--help\" to print this helping message")
-  }
 
   /**
    * Sets the image input
    *
    * @param in URL or path to image
    */
-  override def setInput(in: String): Unit =
+  def setInput(in: String): Unit =
   //todo change it to addFilter way & have a separate command in the consoleView "--image-url"
     try {
       if (in == null)
-        img = new ImageFacade(RandomImageLoader.load(null))
+        img.setRGB(RandomImageLoader.load(null))
       if (in.startsWith("http"))
       //todo fails to load .gif?
-        img = new ImageFacade(URLImageLoader.load(in))
+        img.setRGB(URLImageLoader.load(in))
       else
-        img = new ImageFacade(PathImageLoader.load(in))
+        img.setRGB(PathImageLoader.load(in))
     } catch {
       case e: Throwable =>
         println(
@@ -53,19 +42,18 @@ class ConsoleController(img: ImageFacade) extends Controller[PixelGrid[GSPixel],
    *
    * @param out path for output or null for console
    */
-  override def setOutput(out: String): Unit =
+  def setOutput(out: String): Unit =
     if (out == null)
       exporter = new StdOutputExporter
     else
       exporter = new FileOutputExporter(new File(out))
 
-  override def addFilter(filter: Filter[PixelGrid[GSPixel], PixelGrid[GSPixel]]): Unit = imageFilters += filter
+  def addFilter(filter: PixelGridFilter[GSPixel, GSPixel]): Unit = imageFilters += filter
 
-  override def executeCommands(): Unit = {
+  def executeCommands(): Unit = {
     img.applyFilters(imageFilters.result())
-    img.transformToASCII()
   }
 
-  override def export(): Unit =
+  def export(): Unit =
     exporter.export(img.toString)
 }

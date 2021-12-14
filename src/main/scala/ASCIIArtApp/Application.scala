@@ -12,6 +12,7 @@ class Application {
   def run(args: Array[String]): Unit = {
     try {
       cih.handleInput(args)
+
       //todo finish this?
     } catch {
       case e: Exception => println("--ERROR--" + e)

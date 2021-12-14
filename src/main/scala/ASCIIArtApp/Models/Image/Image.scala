@@ -11,7 +11,8 @@ class Image[T <: Pixel](pixelGrid: PixelGrid[T]) {
   def applyPixelFilter[Y <: Pixel](filter: T => Y): Image[Y] = new Image(pixelGrid.transform(filter))
 
   def applyGridFilter[Y <: Pixel](filter: PixelGrid[T] => PixelGrid[Y]): Image[Y] = {
-    new Image(filter.apply(pixelGrid))
+    val newGrid = filter(pixelGrid)
+    new Image(newGrid)
   }
 
   def getPixel(row: Int, column: Int): T = pixelGrid.getPixel(row, column)

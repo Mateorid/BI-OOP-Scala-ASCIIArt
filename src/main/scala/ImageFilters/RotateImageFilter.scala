@@ -13,7 +13,7 @@ class RotateImageFilter(degrees: Int) extends PixelGridFilter[GSPixel, GSPixel] 
    * @param item input
    * @return item with applied filter
    */
-  override def apply(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
+  override def applyFilter(item: PixelGrid[GSPixel]): PixelGrid[GSPixel] = {
     val actualDegrees: Int = degrees % 360
 
     actualDegrees match {

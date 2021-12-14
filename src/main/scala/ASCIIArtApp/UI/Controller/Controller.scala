@@ -6,11 +6,6 @@ import ImageFilters.{Filter, PixelGridFilter}
 trait Controller[T, Y] {
 
   /**
-   * Shows a help on show to use the UI
-   */
-  def showHelp(): Unit
-
-  /**
    * Sets the image input
    *
    * @param in URL or path to image
