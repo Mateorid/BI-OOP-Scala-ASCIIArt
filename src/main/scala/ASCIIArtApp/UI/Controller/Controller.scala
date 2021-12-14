@@ -1,30 +1,19 @@
 package ASCIIArtApp.UI.Controller
 
-import ASCIIArtApp.Models.Pixel.Pixel
-import ImageFilters.{Filter, PixelGridFilter}
+trait Controller[T, Y, U] {
+  protected var loader: T = _
+  protected var exporter: Y = _
+  protected var filters = List.empty[U]
 
-trait Controller[T, Y] {
+  def setInput(in: T): Unit = loader = in
 
-  /**
-   * Sets the image input
-   *
-   * @param in URL or path to image
-   */
-  def setInput(in: String): Unit
+  def setOutput(out: Y): Unit = exporter = out
 
-  /**
-   * Sets the output for the ASCII Art image
-   *
-   * @param out path for output of nil for console
-   */
-  def setOutput(out: String): Unit
-
-  def addFilter(filter: Filter[T, Y]): Unit
+  def addFilter(filter: U): Unit = filters = filters :+ filter
 
   def executeCommands(): Unit
 
   def export(): Unit
 
   //todo add comments
-
 }

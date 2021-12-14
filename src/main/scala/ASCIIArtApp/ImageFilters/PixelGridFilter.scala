@@ -1,6 +1,6 @@
-package ImageFilters
+package ASCIIArtApp.ImageFilters
 
-import ASCIIArtApp.Models.Pixel.{GSPixel, Pixel}
+import ASCIIArtApp.Models.Pixel.Pixel
 import ASCIIArtApp.Models.PixelGrid
 
 trait PixelGridFilter[T <: Pixel, Y <: Pixel]

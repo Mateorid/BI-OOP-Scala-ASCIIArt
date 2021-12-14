@@ -1,4 +1,4 @@
-package ImageFilters
+package ASCIIArtApp.ImageFilters
 
 import ASCIIArtApp.Models.Pixel.GSPixel
 

@@ -1,12 +1,12 @@
 package ASCIIArtApp
 
 import ASCIIArtApp.Facades.ImageFacade
-import ASCIIArtApp.UI.Controller.ConsoleController
+import ASCIIArtApp.UI.Controller.GSFiltersImageController
 import ASCIIArtApp.UI.InputHandlers.ConsoleInputHandler
 
 class Application {
   val img = new ImageFacade
-  val cc = new ConsoleController(img)
+  val cc = new GSFiltersImageController(img)
   val cih = new ConsoleInputHandler(cc)
 
   def run(args: Array[String]): Unit = {

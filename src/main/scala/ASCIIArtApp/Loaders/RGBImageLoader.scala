@@ -8,15 +8,9 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 import scala.collection.mutable.ListBuffer
 
-trait ImageLoader extends Loader[String] {
+trait RGBImageLoader extends Loader {
 
-  /**
-   * Loads from source to BufferedImage
-   *
-   * @param imageSource item to be loaded
-   * @return RGBImage of the image provided
-   */
-  def load(imageSource: String): Image[RGBPixel]
+  override def load(): Image[RGBPixel]
 
   protected def biToGrid(bufferedImage: BufferedImage): PixelGrid[RGBPixel] = {
     //todo check and throw exceptions

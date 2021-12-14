@@ -1,11 +1,14 @@
 package ASCIIArtApp.UI.InputHandlers
 
-import ASCIIArtApp.UI.Controller.ConsoleController
-import ImageFilters.{BrightnessFilter, InvertImageFilter, RotateImageFilter}
+import ASCIIArtApp.Exporters.{FileOutputExporter, StdOutputExporter}
+import ASCIIArtApp.Loaders.{PathRGBImageLoader, URLRGBImageLoader}
+import ASCIIArtApp.UI.Controller.GSFiltersImageController
+import ASCIIArtApp.ImageFilters.{BrightnessFilter, InvertImageFilter, RotateImageFilter}
 
+import java.io.File
 import scala.collection.mutable.ArrayBuffer
 
-class ConsoleInputHandler(controller: ConsoleController) extends InputHandler[Array[String]] {
+class ConsoleInputHandler(controller: GSFiltersImageController) extends InputHandler[Array[String]] {
 
   def handleInput(commands: Array[String]): Unit = {
     val parsed = parseCommands(commands)
@@ -42,29 +45,30 @@ class ConsoleInputHandler(controller: ConsoleController) extends InputHandler[Ar
     parsed.toArray
   }
 
+  //todo change this to the labs version - regex matcher etc
   private def processCommand(command: String): Unit = {
-    //todo change this to the labs version?
     //Input file
-    if (command.startsWith("--image-url")) {
-      controller.setInput(command.substring(8))
+    if (command.startsWith("--image")) {
+      //todo check for filetype we cant handle .png for example
+      controller.setInput(new PathRGBImageLoader(command.substring(8)))
+      return
+    }
+    else if (command.startsWith("--image-url")) {
+      controller.setInput(new URLRGBImageLoader(command.substring(8)))
       return
     }
     else if (command.startsWith("--image-random")) {
       controller.setInput(null)
     }
-    else if (command.startsWith("--image")) {
-      //todo check for filetype we cant handle .png for example
-      controller.setInput(command.substring(8))
-      return
-    }
+
     //Output file
     if (command.startsWith("--output-file")) {
-      //      println(command.substring(14))
-      controller.setOutput(command.substring(14))
+      val file = new File(command.substring(14))
+      controller.setOutput(new FileOutputExporter(file))
       return
     }
     else if (command == "--output-console") {
-      controller.setOutput(null)
+      controller.setOutput(StdOutputExporter)
       return
     }
     //Filters

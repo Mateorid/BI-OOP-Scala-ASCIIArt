@@ -1,4 +1,4 @@
-package ImageFilters
+package ASCIIArtApp.ImageFilters
 
 trait Filter[T,Y] {
   /**

@@ -1,4 +1,4 @@
-package Exporters
+package ASCIIArtApp.Exporters
 
 trait Exporter[T] {
   /**

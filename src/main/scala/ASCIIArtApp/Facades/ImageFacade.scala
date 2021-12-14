@@ -2,7 +2,7 @@ package ASCIIArtApp.Facades
 
 import ASCIIArtApp.Models.Image.Image
 import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
-import ImageFilters.{GSToASCIIFilter, PixelGridFilter, RGBToGSFilter}
+import ASCIIArtApp.ImageFilters.{GSToASCIIFilter, PixelGridFilter, RGBToGSFilter}
 
 class ImageFacade {
 
