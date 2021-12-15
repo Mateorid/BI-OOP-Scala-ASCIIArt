@@ -1,14 +1,23 @@
 package ASCIIArtApp.UI.InputHandlers
 
 import ASCIIArtApp.Exporters.{FileOutputExporter, StdOutputExporter}
-import ASCIIArtApp.Loaders.{PathRGBImageLoader, URLRGBImageLoader}
+import ASCIIArtApp.Loaders.{
+  PathRGBImageLoader,
+  RandomRGBImageLoader,
+  URLRGBImageLoader
+}
 import ASCIIArtApp.UI.Controller.GSFiltersImageController
-import ASCIIArtApp.ImageFilters.{BrightnessFilter, InvertImageFilter, RotateImageFilter}
+import ASCIIArtApp.ImageFilters.{
+  BrightnessFilter,
+  InvertImageFilter,
+  RotateImageFilter
+}
 
 import java.io.File
 import scala.collection.mutable.ArrayBuffer
 
-class ConsoleInputHandler(controller: GSFiltersImageController) extends InputHandler[Array[String]] {
+class ConsoleInputHandler(controller: GSFiltersImageController)
+    extends InputHandler[Array[String]] {
 
   def handleInput(commands: Array[String]): Unit = {
     val parsed = parseCommands(commands)
@@ -48,26 +57,23 @@ class ConsoleInputHandler(controller: GSFiltersImageController) extends InputHan
   //todo change this to the labs version - regex matcher etc
   private def processCommand(command: String): Unit = {
     //Input file
-    if (command.startsWith("--image")) {
+    if (command.startsWith("--image-url")) {
+      controller.setInput(new URLRGBImageLoader(command.substring(8)))
+      return
+    } else if (command.startsWith("--image-random")) { //todo RandomGenerator taking 2 argument height X width
+      controller.setInput(RandomRGBImageLoader)
+      return
+    } else if (command.startsWith("--image")) {
       //todo check for filetype we cant handle .png for example
       controller.setInput(new PathRGBImageLoader(command.substring(8)))
       return
     }
-    else if (command.startsWith("--image-url")) {
-      controller.setInput(new URLRGBImageLoader(command.substring(8)))
-      return
-    }
-    else if (command.startsWith("--image-random")) {
-      controller.setInput(null)
-    }
-
     //Output file
     if (command.startsWith("--output-file")) {
       val file = new File(command.substring(14))
       controller.setOutput(new FileOutputExporter(file))
       return
-    }
-    else if (command == "--output-console") {
+    } else if (command == "--output-console") {
       controller.setOutput(StdOutputExporter)
       return
     }
@@ -76,12 +82,11 @@ class ConsoleInputHandler(controller: GSFiltersImageController) extends InputHan
       //todo try catch this
       val degrees: Int = command.substring(9).toInt
       if (degrees % 90 != 0)
-        throw new Exception("Incorrect command format, --rotation supports only 90 degrees rotations")
+        throw new Exception(
+          "Incorrect command format, --rotation supports only 90 degrees rotations")
       controller.addFilter(new RotateImageFilter(degrees))
       return
-    }
-
-    else if (command.startsWith("--brightness")) {
+    } else if (command.startsWith("--brightness")) {
       //todo try catch this
       val x: Int = command.substring(13).toInt
       controller.addFilter(new BrightnessFilter(x))

@@ -14,6 +14,8 @@ class ImageFacade {
 
   def setGS(image: Image[GSPixel]): Unit = gsImg = Option.apply(image)
 
+
+
   def setASCII(image: Image[CharPixel]): Unit = asciiImg = Option.apply(image)
 
   def getRGB: Option[Image[RGBPixel]] = rgbImg
