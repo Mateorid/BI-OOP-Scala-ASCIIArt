@@ -10,10 +10,13 @@ object Main extends App {
   //v pixel filteru jde nejak nastavi o jaky typ pixelu se jedna pomoci method generics?
 
 
-  //todo RandomImg
   //todo InputHandler more OOP
+  //todo importer based on file type?
+  //todo extract 'transformers' from filters?
+  //todo change exporters to export Image instead of string? - some adapter
 
-  //todo fuck this all and do filters only on grayscale image
+  //todo nemusime testovat stdoutstream?
+  //todo if exception - close exporters?
   //todo extend pixelGrid with Image classes based
   //todo change List to Seq
   //todo better OOP style filters - Matej

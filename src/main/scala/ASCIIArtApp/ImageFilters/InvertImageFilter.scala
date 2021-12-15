@@ -2,7 +2,7 @@ package ASCIIArtApp.ImageFilters
 
 import ASCIIArtApp.Models.Pixel.GSPixel
 
-class InvertImageFilter extends PixelFilter[GSPixel, GSPixel] {
+object InvertImageFilter extends PixelFilter[GSPixel, GSPixel] {
 
   /**
    * Applies a filter on provided item

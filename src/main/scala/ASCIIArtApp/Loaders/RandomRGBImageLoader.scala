@@ -7,10 +7,8 @@ import ASCIIArtApp.Models.PixelGrid
 import java.awt.Color
 import scala.collection.mutable.ListBuffer
 
-object RandomRGBImageLoader extends RGBImageLoader {
+class RandomRGBImageLoader(height: Int, width: Int) extends RGBImageLoader {
   val rnd = new scala.util.Random
-  val height = 40
-  val width = 80
 
   override def load(): Image[RGBPixel] = new Image[RGBPixel](createGrid)
 
