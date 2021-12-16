@@ -1,8 +1,5 @@
 package ASCIIArtApp.Commands
 
-trait Command[T] {
-
-  def run(command: T): Unit
-
-
+trait Command {
+  def run(): Unit
 }
