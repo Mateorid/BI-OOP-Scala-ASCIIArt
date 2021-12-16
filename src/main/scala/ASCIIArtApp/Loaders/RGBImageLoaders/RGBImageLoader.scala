@@ -1,14 +1,13 @@
-package ASCIIArtApp.Loaders
+package ASCIIArtApp.Loaders.RGBImageLoaders
 
-import ASCIIArtApp.Models.Image.Image
-import ASCIIArtApp.Models.Pixel.RGBPixel
-import ASCIIArtApp.Models.PixelGrid
+import ASCIIArtApp.Loaders.Loader
+import ASCIIArtApp.Models.{Image, PixelGrid, RGBPixel}
 
 import java.awt.Color
 import java.awt.image.BufferedImage
 import scala.collection.mutable.ListBuffer
 
-trait RGBImageLoader extends Loader {
+trait RGBImageLoader extends Loader[Image[RGBPixel]] {
 
   override def load(): Image[RGBPixel]
 

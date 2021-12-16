@@ -1,10 +1,6 @@
 package ASCIIArtApp.Loaders
 
-trait Loader {
+trait Loader[T] {
 
-  /**
-   * Loads something somewhere
-   * @param item item to be loaded
-   */
-  def load(): Any
+  def load(): T
 }

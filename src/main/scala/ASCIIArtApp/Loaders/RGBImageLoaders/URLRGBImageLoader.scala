@@ -1,7 +1,6 @@
-package ASCIIArtApp.Loaders
+package ASCIIArtApp.Loaders.RGBImageLoaders
 
-import ASCIIArtApp.Models.Image.Image
-import ASCIIArtApp.Models.Pixel.RGBPixel
+import ASCIIArtApp.Models.{Image, RGBPixel}
 
 import java.net.URL
 import javax.imageio.ImageIO

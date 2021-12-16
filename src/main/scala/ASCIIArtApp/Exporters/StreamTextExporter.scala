@@ -2,25 +2,12 @@ package ASCIIArtApp.Exporters
 
 import java.io.OutputStream
 
-class StreamTextExporter(outputStream: OutputStream) extends TextExporter
-{
-  private var closed = false
+class StreamTextExporter(outputStream: OutputStream) extends TextExporter {
 
-  protected def exportToStream(text: String): Unit ={
-
-    if (closed)
-      throw new Exception("The stream is already closed")
-
+  protected def exportToStream(text: String): Unit = {
     outputStream.write(text.getBytes("UTF-8"))
     outputStream.flush()
-  }
-
-  def close(): Unit = {
-    if (closed)
-      return
-
     outputStream.close()
-    closed = true
   }
 
   override def export(item: String): Unit = exportToStream(item)

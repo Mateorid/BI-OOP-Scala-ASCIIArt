@@ -1,26 +1,26 @@
-package ASCIIArtApp.Models
-
-import ASCIIArtApp.Models.Pixel.{CharPixel, GSPixel, RGBPixel}
-import org.scalatest.FunSuite
-
-import java.awt.Color
-
-class PixelTest extends FunSuite {
+//package ASCIIArtApp.Models
 //
-//  private val rgbPixel = RGBPixel(new Color(123, 123, 123))
-//  private val charPixel = CharPixel('&')
-//  private val gsPixel = GSPixel(420)
+//import ASCIIArtApp.Models.Pixel.RGBPixel
+//import org.scalatest.FunSuite
 //
-//  test("testRGBPixel") {
-//    assert(rgbPixel.get == new Color(123, 123, 123))
-//  }
+//import java.awt.Color
 //
-//  test("testCharPixel") {
-//    assert(charPixel.get == '&')
-//  }
+//class PixelTest extends FunSuite {
+////
+////  private val rgbPixel = RGBPixel(new Color(123, 123, 123))
+////  private val charPixel = CharPixel('&')
+////  private val gsPixel = GSPixel(420)
+////
+////  test("testRGBPixel") {
+////    assert(rgbPixel.get == new Color(123, 123, 123))
+////  }
+////
+////  test("testCharPixel") {
+////    assert(charPixel.get == '&')
+////  }
+////
+////  test("testGSPixel") {
+////    assert(gsPixel.get == 420)
+////  }
 //
-//  test("testGSPixel") {
-//    assert(gsPixel.get == 420)
-//  }
-
-}
+//}

@@ -1,8 +1,6 @@
-package ASCIIArtApp.Loaders
+package ASCIIArtApp.Loaders.RGBImageLoaders
 
-import ASCIIArtApp.Models.Image.Image
-import ASCIIArtApp.Models.Pixel.RGBPixel
-import ASCIIArtApp.Models.PixelGrid
+import ASCIIArtApp.Models.{Image, PixelGrid, RGBPixel}
 
 import java.awt.Color
 import scala.collection.mutable.ListBuffer

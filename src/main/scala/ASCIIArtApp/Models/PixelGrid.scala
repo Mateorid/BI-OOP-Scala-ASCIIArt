@@ -1,7 +1,5 @@
 package ASCIIArtApp.Models
 
-import ASCIIArtApp.Models.Pixel.Pixel
-
 import scala.collection.mutable.ListBuffer
 
 class PixelGrid[T <: Pixel](pixels: List[List[T]]) {
@@ -29,16 +27,5 @@ class PixelGrid[T <: Pixel](pixels: List[List[T]]) {
       res += row.result()
     }
     new PixelGrid(res.result())
-  }
-
-  override def toString: String = {
-    var res: String = ""
-    for (row <- 0 until height) {
-      for (col <- pixels(row).indices) {
-        res += getPixel(row, col).print()
-      }
-      res += "\n"
-    }
-    res
   }
 }
