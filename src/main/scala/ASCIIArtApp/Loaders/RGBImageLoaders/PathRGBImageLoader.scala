@@ -1,10 +1,8 @@
 package ASCIIArtApp.Loaders.RGBImageLoaders
 
 import ASCIIArtApp.Models.{Image, RGBPixel}
-import com.sun.jdi.InvalidTypeException
 
 import java.io.File
-import java.lang.Exception
 import javax.imageio.{IIOException, ImageIO}
 
 class PathRGBImageLoader(path: String) extends RGBImageLoader {
@@ -25,7 +23,7 @@ class PathRGBImageLoader(path: String) extends RGBImageLoader {
         return new File(path)
       }
     }
-    throw new InvalidTypeException("--ERROR--\nInvalid file type!\nFile must be:\n" + printSupported)
+    throw new IllegalArgumentException("--ERROR--\nInvalid file type!\nFile must be:\n" + printSupported)
   }
 
   private def printSupported: String = {

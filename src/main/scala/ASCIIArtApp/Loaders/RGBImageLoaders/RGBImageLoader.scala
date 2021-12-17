@@ -1,6 +1,6 @@
 package ASCIIArtApp.Loaders.RGBImageLoaders
 
-import ASCIIArtApp.Loaders.{ImageLoader, Loader}
+import ASCIIArtApp.Loaders.ImageLoader
 import ASCIIArtApp.Models.{Image, PixelGrid, RGBPixel}
 
 import java.awt.Color
@@ -12,6 +12,8 @@ trait RGBImageLoader extends ImageLoader[RGBPixel] {
   override def load(): Image[RGBPixel]
 
   protected def biToGrid(bi: BufferedImage): PixelGrid[RGBPixel] = {
+    if(bi == null)
+      throw new NullPointerException("--ERROR--\nThe input image is null!")
     val height = bi.getHeight
     val width = bi.getWidth
     val tmp = ListBuffer.empty[List[RGBPixel]]

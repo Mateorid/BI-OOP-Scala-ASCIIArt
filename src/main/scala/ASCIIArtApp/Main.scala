@@ -11,7 +11,7 @@ object Main extends App {
   try cih.handleInput(args)
   catch {
     case e: IllegalArgumentException => println(e.getMessage)
-    case e: InvalidTypeException => println(e.getMessage)
+    case e: NullPointerException => println(e.getMessage)
     case e: Exception => println("--Unexpected error--\n" + e)
     case e: Any => println("--Very unexpected error--\n" + e)
   }
@@ -19,7 +19,8 @@ object Main extends App {
 
 //todo do poznamek pri odevzdani pridat to ze muj --image-random bere argumenty
 
-//todo make loading better?
+//todo T E S T S
+//todo make loading better? - traits and stuff
 //todo importer based on file type?
 
 //todo add flip filter?

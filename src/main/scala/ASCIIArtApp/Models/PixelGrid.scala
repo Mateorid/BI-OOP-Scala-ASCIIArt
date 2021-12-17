@@ -3,15 +3,20 @@ package ASCIIArtApp.Models
 import scala.collection.mutable.ListBuffer
 
 class PixelGrid[T <: Pixel](pixels: List[List[T]]) {
-  val height: Int = pixels.size
-  val width: Int = pixels.head.length
+
+  if (pixels.isEmpty || pixels.head.isEmpty)
+    throw new IllegalArgumentException("--ERROR--\nImage is empty!")
+
+  def height: Int = pixels.size
+
+  def width: Int = pixels.head.length
 
   def getPixel(row: Int, column: Int): T = {
     if (row > height - 1 || row < 0)
-      throw new IllegalArgumentException("Pixel row out of bounds")
+      throw new IllegalArgumentException("--ERROR--\nPixel row out of bounds")
 
     if (column > width - 1 || column < 0)
-      throw new IllegalArgumentException("Pixel column out of bounds")
+      throw new IllegalArgumentException("--ERROR--\nPixel column out of bounds")
 
     pixels(row)(column)
   }
