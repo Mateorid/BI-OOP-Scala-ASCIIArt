@@ -12,7 +12,7 @@ trait RGBImageLoader extends ImageLoader[RGBPixel] {
   override def load(): Image[RGBPixel]
 
   protected def biToGrid(bi: BufferedImage): PixelGrid[RGBPixel] = {
-    if(bi == null)
+    if (bi == null)
       throw new NullPointerException("--ERROR--\nThe input image is null!")
     val height = bi.getHeight
     val width = bi.getWidth

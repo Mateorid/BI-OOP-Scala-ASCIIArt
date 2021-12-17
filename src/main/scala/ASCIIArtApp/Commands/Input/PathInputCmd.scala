@@ -1,6 +1,5 @@
 package ASCIIArtApp.Commands.Input
 
-import ASCIIArtApp.Commands.Command
 import ASCIIArtApp.Config.Config
 import ASCIIArtApp.Loaders.RGBImageLoaders.PathRGBImageLoader
 

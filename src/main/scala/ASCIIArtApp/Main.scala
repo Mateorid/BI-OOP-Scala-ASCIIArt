@@ -2,7 +2,6 @@ package ASCIIArtApp
 
 import ASCIIArtApp.Config.Config
 import ASCIIArtApp.UI.ConsoleInputHandler
-import com.sun.jdi.InvalidTypeException
 
 object Main extends App {
   val config = new Config
