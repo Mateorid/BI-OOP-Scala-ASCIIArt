@@ -8,8 +8,7 @@ import ASCIIArtApp.ImageTransformation
 
 import scala.collection.mutable.ArrayBuffer
 
-object ConsoleInputHandler extends InputHandler[Array[String]] {
-  val config = new Config
+class ConsoleInputHandler(config: Config) extends InputHandler[Array[String]] {
 
   def handleInput(commands: Array[String]): Unit = {
     val parsed = parseCommands(commands)
@@ -50,6 +49,6 @@ object ConsoleInputHandler extends InputHandler[Array[String]] {
       case RotateFilterCmd.pattern(x) => RotateFilterCmd(x.toInt, config).run()
       case _ =>
         throw new IllegalArgumentException(
-          "Unknown command or wrong arguments!")
+          "Unknown command or wrong command arguments!")
     }
 }

@@ -7,8 +7,10 @@ import ASCIIArtApp.Transformers.{GSToASCIITransformer, RGBToGSTransformer}
 object ImageTransformation {
 
   def run(config: Config): Unit = {
-    if (config.exporter == null || config.loader == null)
-      throw new IllegalArgumentException("Missing exporter or loader!")
+    if (config.exporters.isEmpty)
+      throw new IllegalArgumentException("Missing exporter!")
+    if (config.loader == null)
+      throw new IllegalArgumentException("Missing loader!")
 
     //Load RGB image
     var rgbImg = config.loader.load()
@@ -33,6 +35,7 @@ object ImageTransformation {
 
     //Export
     val printableImg = ASCIIToStringAdapter.adapt(asciiImg)
-    config.exporter.`export`(printableImg)
+    for (i <- config.exporters)
+      i.`export`(printableImg)
   }
 }

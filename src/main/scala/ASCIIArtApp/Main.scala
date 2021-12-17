@@ -1,26 +1,29 @@
 package ASCIIArtApp
 
+import ASCIIArtApp.Config.Config
 import ASCIIArtApp.UI.ConsoleInputHandler
+import com.sun.jdi.InvalidTypeException
 
 object Main extends App {
+  val config = new Config
+  val cih = new ConsoleInputHandler(config)
 
-  try ConsoleInputHandler.handleInput(args)
+  try cih.handleInput(args)
   catch {
-    case e: Exception => println("--ERROR--\n" + e)
+    case e: IllegalArgumentException => println(e.getMessage)
+    case e: InvalidTypeException => println(e.getMessage)
+    case e: Exception => println("--Unexpected error--\n" + e)
+    case e: Any => println("--Very unexpected error--\n" + e)
   }
 }
 
-//todo InputHandler more OOP
-//todo throw exception if >1 inputs/outputs
+//todo do poznamek pri odevzdani pridat to ze muj --image-random bere argumenty
+
+//todo make loading better?
 //todo importer based on file type?
-//todo extract 'transformers' from filters? - redo this better so I can have list of ImageFilters
+
 //todo add flip filter?
-//todo change exporters to export Image instead of string? - some adapter - change to only output once and close the stream
+//todo change exporters to export Image instead of string?
 
 //todo nemusime testovat stdoutstream?
-//todo if exception - close exporters?
-//todo extend pixelGrid with Image classes based
 //todo change List to Seq
-
-//todo give lab credits in the Console input section
-//todo change the 2d List iterations to be dynamic based on actual numbers of pixels in that row to avoid .png crashes

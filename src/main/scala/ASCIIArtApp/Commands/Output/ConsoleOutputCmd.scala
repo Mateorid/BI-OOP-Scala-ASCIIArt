@@ -8,7 +8,7 @@ import scala.util.matching.Regex
 
 case class ConsoleOutputCmd(config: Config) extends Command {
 
-  override def run(): Unit = config.exporter = StdOutputExporter
+  override def run(): Unit = config.exporters = config.exporters :+ StdOutputExporter
 
 }
 

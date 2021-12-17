@@ -10,7 +10,7 @@ import scala.util.matching.Regex
 case class FileOutputCmd(path: String, config: Config) extends Command() {
 
   override def run(): Unit =
-    config.exporter = new FileOutputExporter(new File(path))
+    config.exporters = config.exporters :+ new FileOutputExporter(new File(path))
 
 }
 

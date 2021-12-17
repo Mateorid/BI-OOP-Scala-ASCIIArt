@@ -6,8 +6,17 @@ import ASCIIArtApp.Loaders.RGBImageLoaders.URLRGBImageLoader
 
 import scala.util.matching.Regex
 
-case class URLInputCmd(path: String, config: Config) extends Command {
-  override def run(): Unit = config.loader = new URLRGBImageLoader(path)
+case class URLInputCmd(path: String, config: Config) extends InputCommand(config) {
+//
+//  override def run(): Unit = {
+//    if (config.loader == null)
+//      config.loader = new URLRGBImageLoader(path)
+//    else
+//      throw new IllegalArgumentException("There can only be 1 image input!")
+//  }
+
+  override protected def addLoader(): Unit = config.loader = new URLRGBImageLoader(path)
+
 }
 
 object URLInputCmd {

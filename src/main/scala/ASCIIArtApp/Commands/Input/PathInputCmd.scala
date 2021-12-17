@@ -6,9 +6,16 @@ import ASCIIArtApp.Loaders.RGBImageLoaders.PathRGBImageLoader
 
 import scala.util.matching.Regex
 
-case class PathInputCmd(path: String, config: Config) extends Command {
+case class PathInputCmd(path: String, config: Config) extends InputCommand(config) {
 
-  override def run(): Unit = config.loader = new PathRGBImageLoader(path)
+  //  override def run(): Unit = {
+  //    if (config.loader == null)
+  //      config.loader = new PathRGBImageLoader(path)
+  //    else
+  //      throw new IllegalArgumentException("There can only be 1 image input!")
+  //  }
+
+  override protected def addLoader(): Unit = config.loader = new PathRGBImageLoader(path)
 
 }
 
