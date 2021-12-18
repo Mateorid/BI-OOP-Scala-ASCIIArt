@@ -3,7 +3,6 @@ package ASCIIArtApp.Loaders.RGBImageLoaders
 import ASCIIArtApp.Models.{Image, PixelGrid, RGBPixel}
 
 import java.awt.Color
-import scala.collection.mutable.ListBuffer
 
 class RandomRGBImageLoader(height: Int, width: Int) extends RGBImageLoader {
   val rnd = new scala.util.Random
@@ -11,15 +10,15 @@ class RandomRGBImageLoader(height: Int, width: Int) extends RGBImageLoader {
   override def load(): Image[RGBPixel] = new Image[RGBPixel](createGrid)
 
   private def createGrid: PixelGrid[RGBPixel] = {
-    val tmp = ListBuffer.empty[List[RGBPixel]]
+    var tmp = Seq.empty[Seq[RGBPixel]]
 
-    for (h <- 0 until height) {
-      val row = new ListBuffer[RGBPixel]
-      for (w <- 0 until width)
-        row += randomPixel
-      tmp += row.result()
+    for (_ <- 0 until height) {
+      var row = Seq.empty[RGBPixel]
+      for (_ <- 0 until width)
+        row = row.:+(randomPixel)
+      tmp = tmp :+ row
     }
-    new PixelGrid[RGBPixel](tmp.result())
+    new PixelGrid[RGBPixel](tmp)
   }
 
   private def randomPixel: RGBPixel =

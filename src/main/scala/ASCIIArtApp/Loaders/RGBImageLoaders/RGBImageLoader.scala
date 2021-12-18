@@ -5,7 +5,6 @@ import ASCIIArtApp.Models.{Image, PixelGrid, RGBPixel}
 
 import java.awt.Color
 import java.awt.image.BufferedImage
-import scala.collection.mutable.ListBuffer
 
 trait RGBImageLoader extends ImageLoader[RGBPixel] {
 
@@ -16,15 +15,15 @@ trait RGBImageLoader extends ImageLoader[RGBPixel] {
       throw new NullPointerException("--ERROR--\nThe input image is null!")
     val height = bi.getHeight
     val width = bi.getWidth
-    val tmp = ListBuffer.empty[List[RGBPixel]]
+    var tmp = Seq.empty[Seq[RGBPixel]]
 
     for (h <- 0 until height) {
-      val row = new ListBuffer[RGBPixel]
+      var row = Seq.empty[RGBPixel]
       for (w <- 0 until width)
-        row += RGBPixel(new Color(bi.getRGB(w, h)))
-      tmp += row.result()
+        row = row :+ RGBPixel(new Color(bi.getRGB(w, h)))
+      tmp = tmp :+ row
     }
-    val pixels = tmp.result()
+    val pixels = tmp
     new PixelGrid[RGBPixel](pixels)
   }
 }

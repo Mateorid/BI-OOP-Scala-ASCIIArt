@@ -17,13 +17,12 @@ object Main extends App {
 }
 
 //todo do poznamek pri odevzdani pridat to ze muj --image-random bere argumenty
-
+//todo pixel iterator v Image & pixelGrid?
 //todo T E S T S
 //todo make loading better? - traits and stuff
 //todo importer based on file type?
 
-//todo add flip filter?
+//todo add flip filter? or at least delete it KEKW
 //todo change exporters to export Image instead of string?
 
 //todo nemusime testovat stdoutstream?
-//todo change List to Seq

@@ -6,7 +6,7 @@ import java.io.File
 import javax.imageio.{IIOException, ImageIO}
 
 class PathRGBImageLoader(path: String) extends RGBImageLoader {
-  private val supportedTypes = List[String](".jpg", ".png", ".gif")
+  private val supportedTypes = Seq[String](".jpg", ".png", ".gif")
 
   override def load(): Image[RGBPixel] = {
     try {

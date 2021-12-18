@@ -7,8 +7,8 @@ import ASCIIArtApp.Transformers.Filters.ImageFilter
 
 class Config() {
   var loader: RGBImageLoader = _
-  var exporters = List.empty[TextExporter]
-  var rgbFilters = List.empty[ImageFilter[RGBPixel]]
-  var gsFilters = List.empty[ImageFilter[GSPixel]]
-  var asciiFilters = List.empty[ImageFilter[CharPixel]]
+  var exporters = Seq.empty[TextExporter]
+  var rgbFilters = Seq.empty[ImageFilter[RGBPixel]]
+  var gsFilters = Seq.empty[ImageFilter[GSPixel]]
+  var asciiFilters = Seq.empty[ImageFilter[CharPixel]]
 }

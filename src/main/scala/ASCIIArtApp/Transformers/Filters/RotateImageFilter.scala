@@ -2,9 +2,10 @@ package ASCIIArtApp.Transformers.Filters
 
 import ASCIIArtApp.Models.{Image, Pixel, PixelGrid}
 
-import scala.collection.mutable.ListBuffer
 
 class RotateImageFilter[T <: Pixel](degrees: Int) extends ImageFilter[T] {
+  if (degrees % 90 != 0)
+    throw new IllegalArgumentException("--ERROR--\nOnly 90 degrees rotations are currently supported!")
 
   /**
    * Applies a filter on provided item
@@ -20,31 +21,31 @@ class RotateImageFilter[T <: Pixel](degrees: Int) extends ImageFilter[T] {
       case 90 => rotateRight(item)
       case -270 => rotateRight(item)
       case -90 => rotateLeft(item)
-      case 270 => rotateRight(item)
+      case 270 => rotateLeft(item)
       case _ => rotateRight(rotateRight(item))
     }
   }
 
   private def rotateLeft(item: Image[T]): Image[T] = {
-    val res = ListBuffer.empty[List[T]]
-    for (j <- item.height - 1 to 0 by -1) {
-      val newRow = ListBuffer.empty[T]
-      for (i <- 0 until item.width)
-        newRow += item.getPixel(i, j)
-      res += newRow.result()
+    var res = Seq.empty[Seq[T]]
+    for (j <- item.width - 1 to 0 by -1) {
+      var newRow = Seq.empty[T]
+      for (i <- 0 until item.height)
+        newRow = newRow :+ item.getPixel(i, j)
+      res = res :+ newRow
     }
-    new Image[T](new PixelGrid[T](res.result()))
+    new Image[T](new PixelGrid[T](res))
   }
 
   private def rotateRight(item: Image[T]): Image[T] = {
-    val res = ListBuffer.empty[List[T]]
-    for (j <- 0 until item.height) {
-      val newRow = ListBuffer.empty[T]
-      for (i <- item.width - 1 to 0 by -1)
-        newRow += item.getPixel(i, j)
-      res += newRow.result()
+    var res = Seq.empty[Seq[T]]
+    for (j <- 0 until item.width) {
+      var newRow = Seq.empty[T]
+      for (i <- item.height - 1 to 0 by -1)
+        newRow = newRow :+ item.getPixel(i, j)
+      res = res :+ newRow
     }
-    new Image[T](new PixelGrid[T](res.result()))
+    new Image[T](new PixelGrid[T](res))
   }
 
   //todo this mirrors the image XD

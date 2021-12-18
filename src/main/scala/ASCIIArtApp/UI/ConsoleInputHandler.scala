@@ -6,11 +6,10 @@ import ASCIIArtApp.Commands.Output.{ConsoleOutputCmd, FileOutputCmd}
 import ASCIIArtApp.Config.Config
 import ASCIIArtApp.ImageTransformation
 
-import scala.collection.mutable.ArrayBuffer
 
-class ConsoleInputHandler(config: Config) extends InputHandler[Array[String]] {
+class ConsoleInputHandler(config: Config) extends InputHandler[Seq[String]] {
 
-  def handleInput(commands: Array[String]): Unit = {
+  def handleInput(commands: Seq[String]): Unit = {
     val parsed = parseCommands(commands)
 
     for (i <- parsed)
@@ -19,20 +18,20 @@ class ConsoleInputHandler(config: Config) extends InputHandler[Array[String]] {
     ImageTransformation.run(config)
   }
 
-  private def parseCommands(args: Array[String]): Array[String] = {
-    val parsed = new ArrayBuffer[String]
+  private def parseCommands(args: Seq[String]): Seq[String] = {
+    var parsed = Seq.empty[String]
     var cmd: String = null
 
     for (i <- args)
       if (i.startsWith("--")) {
         if (cmd != null)
-          parsed += cmd
+          parsed = parsed :+ cmd
         cmd = i
       } else
         cmd += " " + i
 
-    parsed += cmd
-    parsed.toArray
+    parsed = parsed :+ cmd
+    parsed
   }
 
   private def processCommand(command: String): Unit =
