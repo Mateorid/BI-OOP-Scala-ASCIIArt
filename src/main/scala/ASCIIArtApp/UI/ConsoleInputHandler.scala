@@ -7,7 +7,7 @@ import ASCIIArtApp.Config.Config
 import ASCIIArtApp.ImageTransformation
 
 
-class ConsoleInputHandler(config: Config) extends InputHandler[Seq[String]] {
+class ConsoleInputHandler(val config: Config) extends InputHandler[Seq[String]] {
 
   def handleInput(commands: Seq[String]): Unit = {
     if (commands.isEmpty)

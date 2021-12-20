@@ -5,7 +5,7 @@ import ASCIIArtApp.Models.{Image, RGBPixel}
 import java.io.File
 import javax.imageio.{IIOException, ImageIO}
 
-class PathRGBImageLoader(path: String) extends RGBImageLoader {
+class PathRGBImageLoader(val path: String) extends RGBImageLoader {
 
   override def load(): Image[RGBPixel] = {
     try {

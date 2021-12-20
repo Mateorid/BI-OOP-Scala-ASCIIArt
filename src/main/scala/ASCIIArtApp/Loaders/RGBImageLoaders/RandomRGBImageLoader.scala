@@ -4,8 +4,8 @@ import ASCIIArtApp.Models.{Image, PixelGrid, RGBPixel}
 
 import java.awt.Color
 
-class RandomRGBImageLoader(height: Int, width: Int) extends RGBImageLoader {
-  val rnd = new scala.util.Random
+class RandomRGBImageLoader(val height: Int, val width: Int) extends RGBImageLoader {
+  private val rnd = new scala.util.Random
 
   override def load(): Image[RGBPixel] = new Image[RGBPixel](createGrid)
 
