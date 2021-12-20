@@ -17,7 +17,10 @@ object Main extends App {
 }
 
 //todo do poznamek pri odevzdani pridat to ze muj --image-random bere argumenty
+
 //todo pixel iterator v Image & pixelGrid?
+//todo predelat config na getter a setter -> zmenit a pridat testy v commandech testovat mockovanim
+
 //todo T E S T S
 //todo make loading better? - traits and stuff
 //todo importer based on file type?

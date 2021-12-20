@@ -2,5 +2,5 @@ package ASCIIArtApp.Exporters
 
 import java.io.{File, FileOutputStream}
 
-class FileOutputExporter(file: File)
+class FileOutputExporter(val file: File)
   extends StreamTextExporter(new FileOutputStream(file)) {}

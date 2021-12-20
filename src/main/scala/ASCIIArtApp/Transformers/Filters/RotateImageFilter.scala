@@ -3,7 +3,7 @@ package ASCIIArtApp.Transformers.Filters
 import ASCIIArtApp.Models.{Image, Pixel, PixelGrid}
 
 
-class RotateImageFilter[T <: Pixel](degrees: Int) extends ImageFilter[T] {
+class RotateImageFilter[T <: Pixel](val degrees: Int) extends ImageFilter[T] {
   if (degrees % 90 != 0)
     throw new IllegalArgumentException("--ERROR--\nOnly 90 degrees rotations are currently supported!")
 
