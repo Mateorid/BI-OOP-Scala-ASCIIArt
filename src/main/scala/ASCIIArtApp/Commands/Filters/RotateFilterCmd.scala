@@ -9,9 +9,7 @@ import scala.util.matching.Regex
 
 case class RotateFilterCmd(degrees: Int, config: Config) extends Command {
 
-  override def run(): Unit =
-    config.rgbFilters =
-      config.rgbFilters :+ new RotateImageFilter[RGBPixel](degrees)
+  override def run(): Unit = config.addRGBFilter(new RotateImageFilter[RGBPixel](degrees))
 
 }
 

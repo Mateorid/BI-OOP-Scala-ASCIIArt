@@ -2,15 +2,28 @@ package ASCIIArtApp.Commands.Output
 
 import ASCIIArtApp.Config.Config
 import ASCIIArtApp.Exporters.FileOutputExporter
+import org.mockito.ArgumentCaptor
+import org.mockito.MockitoSugar.verify
 import org.scalatest.FunSuite
+import org.scalatestplus.mockito.MockitoSugar.mock
 
 class FileOutputCmdTest extends FunSuite {
-  test(".run test") {
-    val cnf = new Config //its just a wrapper class no need to mock it right?
-    val path = "src\\main\\scala\\TestImages\\xd.txt"
+  val path = "src\\main\\scala\\TestImages\\xd.txt"
+
+  test(".run test - mockito") {
+    val cnf = mock[Config]
     FileOutputCmd(path, cnf).run()
-    assert(cnf.exporters.head.isInstanceOf[FileOutputExporter])
-    assert(cnf.exporters.head.asInstanceOf[FileOutputExporter].file.getPath == path)
+    val captor = ArgumentCaptor.forClass(classOf[FileOutputExporter])
+      .asInstanceOf[ArgumentCaptor[FileOutputExporter]]
+
+    verify(cnf).addExporter(captor.capture())
+    assert(captor.getValue.file.getPath == path)
+  }
+  test(".run test - dummy") {
+    val cnf = new Config
+    FileOutputCmd(path, cnf).run()
+    assert(cnf.getExporters.head.isInstanceOf[FileOutputExporter])
+    assert(cnf.getExporters.head.asInstanceOf[FileOutputExporter].file.getPath == path)
   }
   //todo regex test?
 }

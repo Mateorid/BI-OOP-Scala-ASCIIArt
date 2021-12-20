@@ -7,8 +7,7 @@ import ASCIIArtApp.Transformers.Filters.GSFilters.InvertImageFilter
 import scala.util.matching.Regex
 
 case class InvertFilterCmd(config: Config) extends Command {
-  override def run(): Unit =
-    config.gsFilters = config.gsFilters :+ InvertImageFilter
+  override def run(): Unit = config.addGSFilter(InvertImageFilter)
 }
 
 object InvertFilterCmd {

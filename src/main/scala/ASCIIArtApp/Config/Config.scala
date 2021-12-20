@@ -7,9 +7,35 @@ import ASCIIArtApp.Transformers.Filters.ImageFilter
 
 //Just a wrapper class for the app configuration info
 class Config() {
-  var loader: RGBImageLoader = _
-  var exporters = Seq.empty[TextExporter]
-  var rgbFilters = Seq.empty[ImageFilter[RGBPixel]]
-  var gsFilters = Seq.empty[ImageFilter[GSPixel]]
-  var asciiFilters = Seq.empty[ImageFilter[CharPixel]]
+  private var loader: RGBImageLoader = _
+  private var exporters = Seq.empty[TextExporter]
+  private var rgbFilters = Seq.empty[ImageFilter[RGBPixel]]
+  private var gsFilters = Seq.empty[ImageFilter[GSPixel]]
+  private var asciiFilters = Seq.empty[ImageFilter[CharPixel]]
+
+  def setLoader(in: RGBImageLoader): Unit = {
+    if (loader != null)
+      throw new IllegalArgumentException()
+    loader = in
+  }
+
+  def addExporter(in: TextExporter): Unit = exporters = exporters :+ in
+
+  def addRGBFilter(in: ImageFilter[RGBPixel]): Unit = rgbFilters = rgbFilters :+ in
+
+  def addGSFilter(in: ImageFilter[GSPixel]): Unit = gsFilters = gsFilters :+ in
+
+  def addASCIIFilter(in: ImageFilter[CharPixel]): Unit = asciiFilters = asciiFilters :+ in
+
+  def getLoader: RGBImageLoader = loader
+
+  def getExporters: Seq[TextExporter] = exporters
+
+  def getRGBFilters: Seq[ImageFilter[RGBPixel]] = rgbFilters
+
+  def getGSFilters: Seq[ImageFilter[GSPixel]] = gsFilters
+
+  def getASCIIFilters: Seq[ImageFilter[CharPixel]] = asciiFilters
+
+
 }

@@ -7,8 +7,9 @@ import ASCIIArtApp.Transformers.Filters.GSFilters.BrightnessFilter
 import scala.util.matching.Regex
 
 case class BrightnessFilterCmd(value: Int, config: Config) extends Command {
-  override def run(): Unit =
-    config.gsFilters = config.gsFilters :+ new BrightnessFilter(value)
+
+  override def run(): Unit = config.addGSFilter(new BrightnessFilter(value))
+
 }
 
 object BrightnessFilterCmd {

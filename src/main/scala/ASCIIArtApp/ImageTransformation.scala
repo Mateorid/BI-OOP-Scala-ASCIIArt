@@ -7,35 +7,35 @@ import ASCIIArtApp.Transformers.{GSToASCIITransformer, RGBToGSTransformer}
 object ImageTransformation {
 
   def run(config: Config): Unit = {
-    if (config.exporters.isEmpty)
+    if (config.getExporters.isEmpty)
       throw new IllegalArgumentException("Missing exporter!")
-    if (config.loader == null)
+    if (config.getLoader == null)
       throw new IllegalArgumentException("Missing loader!")
 
     //Load RGB image
-    var rgbImg = config.loader.load()
+    var rgbImg = config.getLoader.load()
 
     //RGB filters
-    for (i <- config.rgbFilters)
+    for (i <- config.getRGBFilters)
       rgbImg = i.apply(rgbImg)
 
     //RGB -> GS conversion
     var gsImg = RGBToGSTransformer.apply(rgbImg)
 
     //GS filters
-    for (i <- config.gsFilters)
+    for (i <- config.getGSFilters)
       gsImg = i.apply(gsImg)
 
     //GS -> ASCII conversion
     var asciiImg = GSToASCIITransformer.apply(gsImg)
 
     //ASCII filters
-    for (i <- config.asciiFilters)
+    for (i <- config.getASCIIFilters)
       asciiImg = i.apply(asciiImg)
 
     //Export
     val printableImg = ASCIIToStringAdapter.adapt(asciiImg)
-    for (i <- config.exporters)
+    for (i <- config.getExporters)
       i.`export`(printableImg)
   }
 }
