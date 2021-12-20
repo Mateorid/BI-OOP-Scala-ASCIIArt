@@ -4,7 +4,7 @@ import java.awt.Color
 
 trait Pixel {}
 
-case class CharPixel(value: Char) extends Pixel {} //No need to check, char cant be empty or null :)
+case class ASCIIPixel(value: Char) extends Pixel {} //No need to check, char cant be empty or null :)
 
 case class RGBPixel(value: Color) extends Pixel {
   if (value == null) {

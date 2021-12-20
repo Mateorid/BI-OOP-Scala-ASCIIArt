@@ -15,7 +15,7 @@ class PixelTest extends FunSuite {
     assertThrows[IllegalArgumentException](RGBPixel(null))
   }
   test("CharPixel test") {
-    val charPixel = CharPixel('&')
+    val charPixel = ASCIIPixel('&')
     assert(charPixel.value == '&')
   }
   test("GSPixel test") {

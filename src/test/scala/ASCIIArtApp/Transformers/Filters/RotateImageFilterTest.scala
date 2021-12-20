@@ -7,58 +7,58 @@ import java.awt.Color
 
 class RotateImageFilterTest extends FunSuite {
   val mixed3x3 = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('A'), CharPixel('B'), CharPixel('C')),
+    Seq[Pixel](ASCIIPixel('A'), ASCIIPixel('B'), ASCIIPixel('C')),
     Seq[Pixel](GSPixel(1), GSPixel(2), GSPixel(3)),
     Seq[Pixel](RGBPixel(new Color(69)), RGBPixel(new Color(420)), RGBPixel(new Color(666))),
   )))
   val correct3x3R = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](RGBPixel(new Color(69)), GSPixel(1), CharPixel('A')),
-    Seq[Pixel](RGBPixel(new Color(420)), GSPixel(2), CharPixel('B')),
-    Seq[Pixel](RGBPixel(new Color(666)), GSPixel(3), CharPixel('C')),
+    Seq[Pixel](RGBPixel(new Color(69)), GSPixel(1), ASCIIPixel('A')),
+    Seq[Pixel](RGBPixel(new Color(420)), GSPixel(2), ASCIIPixel('B')),
+    Seq[Pixel](RGBPixel(new Color(666)), GSPixel(3), ASCIIPixel('C')),
   )))
   val correct3x3L = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('C'), GSPixel(3), RGBPixel(new Color(666))),
-    Seq[Pixel](CharPixel('B'), GSPixel(2), RGBPixel(new Color(420))),
-    Seq[Pixel](CharPixel('A'), GSPixel(1), RGBPixel(new Color(69))),
+    Seq[Pixel](ASCIIPixel('C'), GSPixel(3), RGBPixel(new Color(666))),
+    Seq[Pixel](ASCIIPixel('B'), GSPixel(2), RGBPixel(new Color(420))),
+    Seq[Pixel](ASCIIPixel('A'), GSPixel(1), RGBPixel(new Color(69))),
   )))
   val correct3x3UD = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
     Seq[Pixel](RGBPixel(new Color(666)), RGBPixel(new Color(420)), RGBPixel(new Color(69))),
     Seq[Pixel](GSPixel(3), GSPixel(2), GSPixel(1)),
-    Seq[Pixel](CharPixel('C'), CharPixel('B'), CharPixel('A')),
+    Seq[Pixel](ASCIIPixel('C'), ASCIIPixel('B'), ASCIIPixel('A')),
   )))
   val mixed1x3 = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('A'), CharPixel('B'), CharPixel('C'))))
+    Seq[Pixel](ASCIIPixel('A'), ASCIIPixel('B'), ASCIIPixel('C'))))
   )
   val correct1x3R = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('A')),
-    Seq[Pixel](CharPixel('B')),
-    Seq[Pixel](CharPixel('C'))))
+    Seq[Pixel](ASCIIPixel('A')),
+    Seq[Pixel](ASCIIPixel('B')),
+    Seq[Pixel](ASCIIPixel('C'))))
   )
   val correct1x3L = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('C')),
-    Seq[Pixel](CharPixel('B')),
-    Seq[Pixel](CharPixel('A'))))
+    Seq[Pixel](ASCIIPixel('C')),
+    Seq[Pixel](ASCIIPixel('B')),
+    Seq[Pixel](ASCIIPixel('A'))))
   )
   val correct1x3UD = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('C'), CharPixel('B'), CharPixel('A'))))
+    Seq[Pixel](ASCIIPixel('C'), ASCIIPixel('B'), ASCIIPixel('A'))))
   )
   val mixed3x1 = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('A')),
+    Seq[Pixel](ASCIIPixel('A')),
     Seq[Pixel](GSPixel(1)),
     Seq[Pixel](RGBPixel(new Color(69)))))
   )
   val correct3x1L = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](CharPixel('A'), GSPixel(1), RGBPixel(new Color(69)))))
+    Seq[Pixel](ASCIIPixel('A'), GSPixel(1), RGBPixel(new Color(69)))))
   )
   val correct3x1R = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
-    Seq[Pixel](RGBPixel(new Color(69)), GSPixel(1), CharPixel('A'))))
+    Seq[Pixel](RGBPixel(new Color(69)), GSPixel(1), ASCIIPixel('A'))))
   )
   val correct3x1UD = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](
     Seq[Pixel](RGBPixel(new Color(69))),
     Seq[Pixel](GSPixel(1)),
-    Seq[Pixel](CharPixel('A'))))
+    Seq[Pixel](ASCIIPixel('A'))))
   )
-  val mixed1x1 = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](Seq[Pixel](CharPixel('X')))))
+  val mixed1x1 = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](Seq[Pixel](ASCIIPixel('X')))))
 
 
   test("mixed pixels 3x3 90") {

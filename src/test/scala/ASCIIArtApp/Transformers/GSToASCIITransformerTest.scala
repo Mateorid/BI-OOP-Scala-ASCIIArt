@@ -14,20 +14,20 @@ class GSToASCIITransformerTest extends FunSuite {
       Seq[GSPixel](GSPixel(8), GSPixel(100), GSPixel(255)),
     ))
   )
-  val correct3x3 = new Image[CharPixel](
-    new PixelGrid[CharPixel](Seq[Seq[CharPixel]](
-      Seq[CharPixel](CharPixel('$'), CharPixel('$'), CharPixel('$')),
-      Seq[CharPixel](CharPixel('@'), CharPixel('@'), CharPixel('@')),
-      Seq[CharPixel](CharPixel('B'), CharPixel('U'), CharPixel(' ')),
+  val correct3x3 = new Image[ASCIIPixel](
+    new PixelGrid[ASCIIPixel](Seq[Seq[ASCIIPixel]](
+      Seq[ASCIIPixel](ASCIIPixel('$'), ASCIIPixel('$'), ASCIIPixel('$')),
+      Seq[ASCIIPixel](ASCIIPixel('@'), ASCIIPixel('@'), ASCIIPixel('@')),
+      Seq[ASCIIPixel](ASCIIPixel('B'), ASCIIPixel('U'), ASCIIPixel(' ')),
     )))
   val gsImg1x3 = new Image[GSPixel](
     new PixelGrid[GSPixel](Seq[Seq[GSPixel]](
       Seq[GSPixel](GSPixel(0), GSPixel(120), GSPixel(255)),
     ))
   )
-  val correct1x3 = new Image[CharPixel](
-    new PixelGrid[CharPixel](Seq[Seq[CharPixel]](
-      Seq[CharPixel](CharPixel('$'), CharPixel('v'), CharPixel(' ')),
+  val correct1x3 = new Image[ASCIIPixel](
+    new PixelGrid[ASCIIPixel](Seq[Seq[ASCIIPixel]](
+      Seq[ASCIIPixel](ASCIIPixel('$'), ASCIIPixel('v'), ASCIIPixel(' ')),
     ))
   )
   val gsImg3x1 = new Image[GSPixel](
@@ -37,19 +37,19 @@ class GSToASCIITransformerTest extends FunSuite {
       Seq[GSPixel](GSPixel(255))
     ))
   )
-  val correct3x1 = new Image[CharPixel](
-    new PixelGrid[CharPixel](Seq[Seq[CharPixel]](
-      Seq[CharPixel](CharPixel('$')),
-      Seq[CharPixel](CharPixel('v')),
-      Seq[CharPixel](CharPixel(' '))
+  val correct3x1 = new Image[ASCIIPixel](
+    new PixelGrid[ASCIIPixel](Seq[Seq[ASCIIPixel]](
+      Seq[ASCIIPixel](ASCIIPixel('$')),
+      Seq[ASCIIPixel](ASCIIPixel('v')),
+      Seq[ASCIIPixel](ASCIIPixel(' '))
     ))
   )
   val gsImg1x1 = new Image[GSPixel](new PixelGrid[GSPixel](
     Seq[Seq[GSPixel]](Seq[GSPixel](GSPixel('X')))
   ))
-  val correct1x1 = new Image[CharPixel](
-    new PixelGrid[CharPixel](Seq[Seq[CharPixel]](
-      Seq[CharPixel](CharPixel('Q')))))
+  val correct1x1 = new Image[ASCIIPixel](
+    new PixelGrid[ASCIIPixel](Seq[Seq[ASCIIPixel]](
+      Seq[ASCIIPixel](ASCIIPixel('Q')))))
 
 
   test("3x3") {

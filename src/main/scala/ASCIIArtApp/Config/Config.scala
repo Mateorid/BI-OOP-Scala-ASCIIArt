@@ -2,7 +2,7 @@ package ASCIIArtApp.Config
 
 import ASCIIArtApp.Exporters.TextExporter
 import ASCIIArtApp.Loaders.RGBImageLoaders.RGBImageLoader
-import ASCIIArtApp.Models.{CharPixel, GSPixel, RGBPixel}
+import ASCIIArtApp.Models.{ASCIIPixel, GSPixel, RGBPixel}
 import ASCIIArtApp.Transformers.Filters.ImageFilter
 
 //Just a wrapper class for the app configuration info
@@ -11,11 +11,11 @@ class Config() {
   private var exporters = Seq.empty[TextExporter]
   private var rgbFilters = Seq.empty[ImageFilter[RGBPixel]]
   private var gsFilters = Seq.empty[ImageFilter[GSPixel]]
-  private var asciiFilters = Seq.empty[ImageFilter[CharPixel]]
+  private var asciiFilters = Seq.empty[ImageFilter[ASCIIPixel]]
 
   def setLoader(in: RGBImageLoader): Unit = {
     if (loader != null)
-      throw new IllegalArgumentException()
+      throw new IllegalArgumentException("--ERROR--\nThere can only be 1 input command!")
     loader = in
   }
 
@@ -25,7 +25,7 @@ class Config() {
 
   def addGSFilter(in: ImageFilter[GSPixel]): Unit = gsFilters = gsFilters :+ in
 
-  def addASCIIFilter(in: ImageFilter[CharPixel]): Unit = asciiFilters = asciiFilters :+ in
+  def addASCIIFilter(in: ImageFilter[ASCIIPixel]): Unit = asciiFilters = asciiFilters :+ in
 
   def getLoader: RGBImageLoader = loader
 
@@ -35,7 +35,5 @@ class Config() {
 
   def getGSFilters: Seq[ImageFilter[GSPixel]] = gsFilters
 
-  def getASCIIFilters: Seq[ImageFilter[CharPixel]] = asciiFilters
-
-
+  def getASCIIFilters: Seq[ImageFilter[ASCIIPixel]] = asciiFilters
 }
