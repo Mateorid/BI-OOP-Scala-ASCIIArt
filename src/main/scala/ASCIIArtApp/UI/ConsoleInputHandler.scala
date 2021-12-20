@@ -10,6 +10,9 @@ import ASCIIArtApp.ImageTransformation
 class ConsoleInputHandler(config: Config) extends InputHandler[Seq[String]] {
 
   def handleInput(commands: Seq[String]): Unit = {
+    if (commands.isEmpty)
+      throw new IllegalArgumentException("--ERROR--\nYou need to provide input & output!")
+
     val parsed = parseCommands(commands)
 
     for (i <- parsed)
