@@ -7,6 +7,10 @@ import javax.imageio.{IIOException, ImageIO}
 
 case class ImageIOURLLoader(url: String) extends ImageIOLoader[URL] {
 
+  /**
+   * @return Loaded Image[RGBPixel]
+   */
+
   override def load(): Image[RGBPixel] = {
     try {
       val bi = ImageIO.read(new URL(url))

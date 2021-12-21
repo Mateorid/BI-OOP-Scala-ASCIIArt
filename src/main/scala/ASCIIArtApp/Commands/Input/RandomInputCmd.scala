@@ -7,7 +7,9 @@ import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.RandomRGBImageLoader
 import scala.util.matching.Regex
 
 case class RandomInputCmd(height: Int, width: Int, config: Config) extends Command {
-
+  /**
+   * Executes the command
+   */
   override def run(): Unit = config.setLoader(RandomRGBImageLoader(height, width))
 }
 

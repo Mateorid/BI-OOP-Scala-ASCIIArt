@@ -8,6 +8,11 @@ import java.awt.image.BufferedImage
 
 trait ImageIOLoader[T] extends RGBImageLoader {
 
+  /**
+   * Transforms given buffered image into a PixelGrid[RGBPixel]
+   * @param bi buffered image
+   * @return PixelGrid[RGBPixel] created from buffered image
+   */
   protected def biToGrid(bi: BufferedImage): PixelGrid[RGBPixel] = {
     if (bi == null)
       throw new NullPointerException("--ERROR--\nThe input image is null!")

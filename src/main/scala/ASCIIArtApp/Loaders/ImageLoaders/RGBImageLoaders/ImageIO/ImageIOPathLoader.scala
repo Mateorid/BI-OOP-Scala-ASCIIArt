@@ -8,6 +8,9 @@ import javax.imageio.{IIOException, ImageIO}
 class ImageIOPathLoader(val path: String) extends ImageIOLoader[File] {
   protected val supportedTypes: Seq[String] = Seq[String](".jpg", ".png", ".gif")
 
+  /**
+   * @return Loaded Image[RGBPixel]
+   */
   override def load(): Image[RGBPixel] = {
     try {
       val bi = ImageIO.read(makeFile(path))
@@ -17,6 +20,11 @@ class ImageIOPathLoader(val path: String) extends ImageIOLoader[File] {
     }
   }
 
+  /**
+   * Creates a java.io.File from String
+   * @param path string containing path to image
+   * @return java.io.File from given path
+   */
   protected def makeFile(path: String): File = {
     for (i <- supportedTypes) {
       if (path.endsWith(i)) {
@@ -26,6 +34,10 @@ class ImageIOPathLoader(val path: String) extends ImageIOLoader[File] {
     throw new IllegalArgumentException("--ERROR--\nInvalid file type!\nFile must be:\n" + printSupported)
   }
 
+  /**
+   * Creates a string from supportedTypes
+   * @return string of supported types
+   */
   protected def printSupported: String = {
     var res = new String
     for (i <- supportedTypes) res += i + "\n"

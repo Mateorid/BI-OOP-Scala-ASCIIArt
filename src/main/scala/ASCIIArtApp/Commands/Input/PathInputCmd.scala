@@ -7,7 +7,9 @@ import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.ImageIO.ImageIOPathLoade
 import scala.util.matching.Regex
 
 case class PathInputCmd(path: String, config: Config) extends Command {
-
+  /**
+   * Executes the command
+   */
   override def run(): Unit = config.setLoader(new ImageIOPathLoader(path))
 
 }

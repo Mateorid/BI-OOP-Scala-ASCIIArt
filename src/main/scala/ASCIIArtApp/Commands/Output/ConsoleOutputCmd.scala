@@ -7,7 +7,9 @@ import ASCIIArtApp.Exporters.StdOutputExporter
 import scala.util.matching.Regex
 
 case class ConsoleOutputCmd(config: Config) extends Command {
-
+  /**
+   * Executes the command
+   */
   override def run(): Unit = config.addExporter(StdOutputExporter)
 
 }

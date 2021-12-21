@@ -6,9 +6,19 @@ import ASCIIArtApp.Commands.Input.{PathInputCmd, RandomInputCmd, URLInputCmd}
 import ASCIIArtApp.Commands.Output.{ConsoleOutputCmd, FileOutputCmd}
 import ASCIIArtApp.Config.Config
 
-
+/**
+ * Handles user input
+ *
+ * @param config   config where user input will be set
+ * @param executor config executor that will be called to execute the user inputs
+ */
 class ConsoleInputHandler(val config: Config, val executor: ConfigExecutor) extends InputHandler[Seq[String]] {
 
+  /**
+   * Handles the provided commands
+   *
+   * @param commands commands to be handled
+   */
   def handleInput(commands: Seq[String]): Unit = {
     if (commands.isEmpty)
       throw new IllegalArgumentException("--ERROR--\nYou need to provide input & output!")
@@ -21,6 +31,12 @@ class ConsoleInputHandler(val config: Config, val executor: ConfigExecutor) exte
     executor.run(config)
   }
 
+  /**
+   * Parses the arguments provided by merging them until "--" is found
+   *
+   * @param args commands to be parsed
+   * @return parsed commands
+   */
   private def parseCommands(args: Seq[String]): Seq[String] = {
     var parsed = Seq.empty[String]
     var cmd: String = null
@@ -37,6 +53,11 @@ class ConsoleInputHandler(val config: Config, val executor: ConfigExecutor) exte
     parsed
   }
 
+  /**
+   * Calls commands based on given command
+   *
+   * @param command command to be called
+   */
   private def processCommand(command: String): Unit =
     command match {
       case PathInputCmd.pattern(x) => PathInputCmd(x, config).run()

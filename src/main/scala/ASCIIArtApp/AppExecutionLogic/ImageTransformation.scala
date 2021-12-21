@@ -4,12 +4,14 @@ import ASCIIArtApp.Config.Config
 
 //Transformation logic
 object ImageTransformation extends ConfigExecutor {
-
+  /**
+   * Executes the provided config
+   */
   override def run(config: Config): Unit = {
     if (config.getLoader == null)
       throw new IllegalArgumentException("Missing loader!")
     if (config.getExporters.isEmpty)
-    throw new IllegalArgumentException("Missing exporter!")
+      throw new IllegalArgumentException("Missing exporter!")
 
     //Load RGB image
     var rgbImg = config.getLoader.load()

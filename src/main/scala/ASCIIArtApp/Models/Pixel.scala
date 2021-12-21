@@ -2,6 +2,9 @@ package ASCIIArtApp.Models
 
 import java.awt.Color
 
+/**
+ * Pixel trait
+ */
 trait Pixel {}
 
 case class ASCIIPixel(value: Char) extends Pixel {} //No need to check, char cant be empty or null :)

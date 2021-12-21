@@ -6,11 +6,11 @@ import ASCIIArtApp.Transformers.Filters.PixelFilter
 object InvertImageFilter extends PixelFilter[GSPixel] {
 
   /**
-   * Applies a filter on provided item
+   * Inverts the GS value of the pixel
    *
-   * @param item input
-   * @return item with applied filter
+   * @param pixel pixel to invert
+   * @return pixel with inverted value
    */
-  override def applyOnPixel(item: GSPixel): GSPixel =
-    GSPixel(255 - item.value)
+  override def applyOnPixel(pixel: GSPixel): GSPixel =
+    GSPixel(255 - pixel.value)
 }
