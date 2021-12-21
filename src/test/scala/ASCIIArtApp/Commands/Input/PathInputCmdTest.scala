@@ -1,7 +1,7 @@
 package ASCIIArtApp.Commands.Input
 
 import ASCIIArtApp.Config.Config
-import ASCIIArtApp.Loaders.RGBImageLoaders.PathRGBImageLoader
+import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.ImageIO.ImageIOPathLoader
 import org.mockito.ArgumentCaptor
 import org.mockito.MockitoSugar.verify
 import org.scalatest.FunSuite
@@ -13,8 +13,8 @@ class PathInputCmdTest extends FunSuite {
     val path = "you/mom/booba.txt"
     PathInputCmd(path,cnf).run()
     val captor =
-      ArgumentCaptor.forClass(classOf[PathRGBImageLoader])
-        .asInstanceOf[ArgumentCaptor[PathRGBImageLoader]]
+      ArgumentCaptor.forClass(classOf[ImageIOPathLoader])
+        .asInstanceOf[ArgumentCaptor[ImageIOPathLoader]]
     verify(cnf).setLoader(captor.capture())
     assert(captor.getValue.path == path)
   }

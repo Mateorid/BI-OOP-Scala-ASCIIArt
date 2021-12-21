@@ -1,7 +1,7 @@
 package ASCIIArtApp.Commands.Input
 
 import ASCIIArtApp.Config.Config
-import ASCIIArtApp.Loaders.RGBImageLoaders.RandomRGBImageLoader
+import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.RandomRGBImageLoader
 import org.mockito.ArgumentCaptor
 import org.mockito.MockitoSugar.verify
 import org.scalatest.FunSuite

@@ -2,13 +2,13 @@ package ASCIIArtApp.Commands.Input
 
 import ASCIIArtApp.Commands.Command
 import ASCIIArtApp.Config.Config
-import ASCIIArtApp.Loaders.RGBImageLoaders.URLRGBImageLoader
+import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.ImageIO.ImageIOURLLoader
 
 import scala.util.matching.Regex
 
 case class URLInputCmd(path: String, config: Config) extends Command {
 
-  override def run(): Unit = config.setLoader(new URLRGBImageLoader(path))
+  override def run(): Unit = config.setLoader(ImageIOURLLoader(path))
 
 }
 

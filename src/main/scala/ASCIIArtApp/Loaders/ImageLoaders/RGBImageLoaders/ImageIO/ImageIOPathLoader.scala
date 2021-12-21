@@ -1,22 +1,23 @@
-package ASCIIArtApp.Loaders.RGBImageLoaders
+package ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.ImageIO
 
 import ASCIIArtApp.Models.{Image, RGBPixel}
 
 import java.io.File
 import javax.imageio.{IIOException, ImageIO}
 
-class PathRGBImageLoader(val path: String) extends RGBImageLoader {
+class ImageIOPathLoader(val path: String) extends ImageIOLoader[File] {
+  protected val supportedTypes: Seq[String] = Seq[String](".jpg", ".png", ".gif")
 
   override def load(): Image[RGBPixel] = {
     try {
-      val grid = biToGrid(ImageIO.read(makeFile))
-      new Image[RGBPixel](grid)
+      val bi = ImageIO.read(makeFile(path))
+      new Image[RGBPixel](biToGrid(bi))
     } catch {
       case _: IIOException => throw new IllegalArgumentException("--ERROR--\nFailed to load the path, check if the path is correct and the file exists!")
     }
   }
 
-  private def makeFile: File = {
+  protected def makeFile(path: String): File = {
     for (i <- supportedTypes) {
       if (path.endsWith(i)) {
         return new File(path)
@@ -25,10 +26,9 @@ class PathRGBImageLoader(val path: String) extends RGBImageLoader {
     throw new IllegalArgumentException("--ERROR--\nInvalid file type!\nFile must be:\n" + printSupported)
   }
 
-  private def printSupported: String = {
+  protected def printSupported: String = {
     var res = new String
     for (i <- supportedTypes) res += i + "\n"
     res
   }
-
 }

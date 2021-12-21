@@ -1,7 +1,7 @@
 package ASCIIArtApp.Config
 
 import ASCIIArtApp.Exporters.TextExporter
-import ASCIIArtApp.Loaders.RGBImageLoaders.RGBImageLoader
+import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.RGBImageLoader
 import ASCIIArtApp.Models.{ASCIIPixel, GSPixel, RGBPixel}
 import ASCIIArtApp.Transformers.Filters.ImageFilter
 import org.scalatest.FunSuite
@@ -12,7 +12,6 @@ class ConfigTest extends FunSuite {
   test("testSetLoader") {
     val cfg = new Config
     val loader = mock[RGBImageLoader]
-    val loader2 = mock[RGBImageLoader]
     cfg.setLoader(loader)
     assert(cfg.getLoader == loader)
   }

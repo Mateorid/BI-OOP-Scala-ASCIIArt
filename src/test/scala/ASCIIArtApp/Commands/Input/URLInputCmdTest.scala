@@ -1,7 +1,7 @@
 package ASCIIArtApp.Commands.Input
 
 import ASCIIArtApp.Config.Config
-import ASCIIArtApp.Loaders.RGBImageLoaders.URLRGBImageLoader
+import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.ImageIO.ImageIOURLLoader
 import org.mockito.ArgumentCaptor
 import org.mockito.MockitoSugar.verify
 import org.scalatest.FunSuite
@@ -13,8 +13,8 @@ class URLInputCmdTest extends FunSuite {
     val url = "your.mom/booba.png"
     URLInputCmd(url,cnf).run()
     val captor =
-      ArgumentCaptor.forClass(classOf[URLRGBImageLoader])
-        .asInstanceOf[ArgumentCaptor[URLRGBImageLoader]]
+      ArgumentCaptor.forClass(classOf[ImageIOURLLoader])
+        .asInstanceOf[ArgumentCaptor[ImageIOURLLoader]]
     verify(cnf).setLoader(captor.capture())
     assert(captor.getValue.url == url)
   }

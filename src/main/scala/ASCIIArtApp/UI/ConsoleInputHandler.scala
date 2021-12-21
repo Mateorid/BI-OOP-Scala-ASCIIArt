@@ -1,13 +1,13 @@
 package ASCIIArtApp.UI
 
+import ASCIIArtApp.AppExecutionLogic.ConfigExecutor
 import ASCIIArtApp.Commands.Filters.{BrightnessFilterCmd, InvertFilterCmd, RotateFilterCmd}
 import ASCIIArtApp.Commands.Input.{PathInputCmd, RandomInputCmd, URLInputCmd}
 import ASCIIArtApp.Commands.Output.{ConsoleOutputCmd, FileOutputCmd}
 import ASCIIArtApp.Config.Config
-import ASCIIArtApp.ImageTransformation
 
 
-class ConsoleInputHandler(val config: Config) extends InputHandler[Seq[String]] {
+class ConsoleInputHandler(val config: Config, val executor: ConfigExecutor) extends InputHandler[Seq[String]] {
 
   def handleInput(commands: Seq[String]): Unit = {
     if (commands.isEmpty)
@@ -18,7 +18,7 @@ class ConsoleInputHandler(val config: Config) extends InputHandler[Seq[String]] 
     for (i <- parsed)
       processCommand(i)
 
-    ImageTransformation.run(config)
+    executor.run(config)
   }
 
   private def parseCommands(args: Seq[String]): Seq[String] = {

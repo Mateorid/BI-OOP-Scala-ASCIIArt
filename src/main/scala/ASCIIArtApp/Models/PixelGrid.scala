@@ -1,6 +1,6 @@
 package ASCIIArtApp.Models
 
-
+//Class that holds the pixels
 class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
 
   if (pixels.isEmpty || pixels.head.isEmpty)
@@ -10,6 +10,11 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
 
   def width: Int = pixels.head.length
 
+  /**
+   * Returns the pixel from given position
+   *
+   * @return pixel from given position
+   */
   def getPixel(row: Int, column: Int): T = {
     if (row > height - 1 || row < 0)
       throw new IllegalArgumentException("--ERROR--\nPixel row out of bounds")
@@ -20,12 +25,19 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
     pixels(row)(column)
   }
 
-  def transform[Y <: Pixel](filter: T => Y): PixelGrid[Y] = {
+  /**
+   * Applies given transforming function on this PixelGrid
+   *
+   * @param func transforming function
+   * @tparam Y Type of pixel that are current pixels being transformed to
+   * @return PixelGrid with the transforming function applied
+   */
+  def transform[Y <: Pixel](func: T => Y): PixelGrid[Y] = {
     var res = Seq.empty[Seq[Y]]
     for (i <- 0 until height) {
       var row = Seq.empty[Y]
       for (j <- pixels(i).indices) {
-        val pixel = filter(getPixel(i, j))
+        val pixel = func(getPixel(i, j))
         row = row :+ pixel
       }
       res = res :+ row
@@ -36,7 +48,7 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
   override def equals(obj: Any): Boolean = {
     obj match {
       case obj: PixelGrid[T] =>
-        //sorry for duplicate code I couldn't figure out how to make an iterator :(
+        //sorry for duplicate code I couldn't figure out how to make an iterator, I am a failure :(
         if (obj.height != height || obj.width != width)
           return false
         for (h <- 0 until height; w <- 0 until width) {

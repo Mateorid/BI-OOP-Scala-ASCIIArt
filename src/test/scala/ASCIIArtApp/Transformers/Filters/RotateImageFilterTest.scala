@@ -60,7 +60,26 @@ class RotateImageFilterTest extends FunSuite {
   )
   val mixed1x1 = new Image[Pixel](new PixelGrid[Pixel](Seq[Seq[Pixel]](Seq[Pixel](ASCIIPixel('X')))))
 
-
+  test("mixed pixels 3x3 0") {
+    val filter = new RotateImageFilter[Pixel](0)
+    val res = filter.apply(mixed3x3)
+    assert(res.equals(mixed3x3))
+  }
+  test("mixed pixels 3x1 0") {
+    val filter = new RotateImageFilter[Pixel](0)
+    val res = filter.apply(mixed3x1)
+    assert(res.equals(mixed3x1))
+  }
+  test("mixed pixels 1x3 0") {
+    val filter = new RotateImageFilter[Pixel](0)
+    val res = filter.apply(mixed1x3)
+    assert(res.equals(mixed1x3))
+  }
+  test("mixed pixels 1x1 0") {
+    val filter = new RotateImageFilter[Pixel](0)
+    val res = filter.apply(mixed1x1)
+    assert(res.equals(mixed1x1))
+  }
   test("mixed pixels 3x3 90") {
     val filter = new RotateImageFilter[Pixel](+90)
     val res = filter.apply(mixed3x3)

@@ -1,14 +1,12 @@
-package ASCIIArtApp.Loaders.RGBImageLoaders
+package ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.ImageIO
 
-import ASCIIArtApp.Loaders.ImageLoader
-import ASCIIArtApp.Models.{Image, PixelGrid, RGBPixel}
+import ASCIIArtApp.Loaders.ImageLoaders.RGBImageLoaders.RGBImageLoader
+import ASCIIArtApp.Models.{PixelGrid, RGBPixel}
 
 import java.awt.Color
 import java.awt.image.BufferedImage
 
-trait RGBImageLoader extends ImageLoader[RGBPixel] {
-
-  override def load(): Image[RGBPixel]
+trait ImageIOLoader[T] extends RGBImageLoader {
 
   protected def biToGrid(bi: BufferedImage): PixelGrid[RGBPixel] = {
     if (bi == null)
